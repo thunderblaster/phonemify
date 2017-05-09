@@ -100,6 +100,59 @@ function checkIfAAVEGerund(word) {
 }
 
 //=================================================================
+//===== Navy Research Lab Implementation ==========================
+//=================================================================
+/*
+	Based on: NRL Report 7948, "Automatic Translation of English Text to Phonetics by Means of Letter-to-Sound Rules""
+	Report Authors: HONEY SUE EL.OVITZ, RODNEY W. JOHNSON, ASTRID McHUGH, AND JOHN E. SHORE
+	Dated: 1976-01-21
+	Located At: http://www.dtic.mil/dtic/tr/fulltext/u2/a021929.pdf
+*/
+
+/* # = 1 or more vowels
+ * * = 1 or more consonants
+ * . = a voiced consonant
+ * $ = single consonant folled by an 'i' or 'e'
+ * % = suffix such as 'e', 'es', 'ed', 'er', 'ing', 'ely'
+ * & = a silibant
+ * @ = a consonant after which long 'u' is pronounced as in 'rule', not 'mule'
+ * ^ = a single consonant
+ * + = a front vowel
+ * : = 0 or more consonants
+ */
+
+const vowel = ['a', 'e', 'i', 'o', 'u', 'y'];
+const consonant = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z'];
+const voiced = ['b', 'd', 'v', 'g', 'j', 'l', 'm', 'n', 'r', 'w', 'z'];
+const front = ['e', 'i', 'y'];
+const suffix = ['er', 'e', 'es', 'ed', 'ing'];
+const silibant = ['s', 'c', 'g', 'z', 'x', 'j', 'ch', 'sh'];
+const nonpal = ['t', 's', 'r', 'd', 'l', 'z', 'n', 'j', 'th', 'ch', 'sh'];
+
+const patternHash = /[aeiouy]+/i;
+const patternStar = /[bcdfghjklmnpqrstvwxz]+/i;
+const patternDot = /[^bdvgjlmnrwz][bdvgjlmnrwz]/i;
+const patternDollar = /[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][ei]/i;
+const patternPercent = /(?:er)|(?:es)|(?:ed)|(?:ing)|e/i;
+const patternAmp = /(?:ch)|(?:sh)|[scgzxj]/i;
+const patternAt = /(?:ch)|(?:sh)|(?:th)|[tsrdlznj]/i;
+const patternHat = /[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]/i;
+const patternPlus = /[^eiy][eiy]/i;
+const patternColon = /[bcdfghjklmnpqrstvwxz]*/i;
+
+
+function translateNRLRule (word, regex, successPhonemes) { //example: translateNRLRule(word, /a$/i, "AX")
+	var matches = word.leftToTranslate.match(regex);   // where word is an object with leftToTranslate and translated properties
+	if(matches) {
+		word.translated = word.translated + successPhonemes + " ";
+		word.leftToTranslate = word.leftToTranslate.replace(matches[0], "");
+		return true;
+	} else {
+		return false;
+	}
+}
+
+//=================================================================
 //===== Number to words conversion ================================
 //=================================================================
 
