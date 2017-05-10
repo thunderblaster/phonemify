@@ -152,6 +152,101 @@ function translateNRLRule (word, regex, successPhonemes) { //example: translateN
 	}
 }
 
+
+function translateViaNRL (wordToTranslate) {
+	var word = {
+		leftToTranslate:wordToTranslate,
+		translated:"",
+		original:wordToTranslate
+	};
+	while(word.leftToTranslate !== "") {
+		switch(word.leftToTranslate.chatAt(0) {
+			case 'a':
+				//do the A checks here
+				break;
+			case 'b':
+				//do the B checks here
+				break;
+			case 'c':
+				//do the C checks here
+				break;
+			case 'd':
+				//do the D checks here
+				break;
+			case 'e':
+				//do the E checks here
+				break;
+			case 'f':
+				//do the F checks here
+				break;
+			case 'g':
+				//do the G checks here
+				break;
+			case 'h':
+				//do the H checks here
+				break;
+			case 'i':
+				//do the I checks here
+				break;
+			case 'j':
+				//do the J checks here
+				break;
+			case 'k':
+				//do the K checks here
+				break;
+			case 'l':
+				//do the L checks here
+				break;
+			case 'm':
+				//do the M checks here
+				break;
+			case 'n':
+				//do the N checks here
+				break;
+			case 'o':
+				//do the O checks here
+				break;
+			case 'p':
+				//do the P checks here
+				break;
+			case 'q':
+				//do the Q checks here
+				break;
+			case 'r':
+				//do the R checks here
+				break;
+			case 's':
+				//do the S checks here
+				break;
+			case 't':
+				//do the T checks here
+				break;
+			case 'u':
+				//do the U checks here
+				break;
+			case 'v':
+				//do the V checks here
+				break;
+			case 'w':
+				//do the W checks here
+				break;
+			case 'x':
+				//do the X checks here
+				break;
+			case 'y':
+				//do the Y checks here
+				break;
+			case 'z':
+				//do the Z checks here
+				break;
+			default:
+				console.log("found a weird letter during NRL translation.");
+				
+		});
+	}
+}
+
+
 //=================================================================
 //===== Number to words conversion ================================
 //=================================================================
