@@ -145,7 +145,7 @@ function translateNRLRule (word, regex, successPhonemes) { //example: translateN
 	var matches = word.leftToTranslate.match(regex);   // where word is an object with leftToTranslate and translated properties
 	if(matches) {
 		word.translated = word.translated + successPhonemes + " ";
-		word.leftToTranslate = word.leftToTranslate.replace(matches[0], "");
+		word.leftToTranslate = word.leftToTranslate.replace(word.letters, "");
 		return true;
 	} else {
 		return false;
@@ -244,6 +244,44 @@ function translateViaNRL (wordToTranslate) {
 				
 		});
 	}
+}
+
+function aRuleEng (word) {
+	const aRules = [
+		{letters: a, regex: /a$/i, phonemes: "AX"}, //[A] =/AX/
+		{letters: are, regex: /^are$/i, phonemes: "AA R"},// [ARE] =/AA R/
+		{letters: ar, regex: /^aro/i, phonemes: "AX R"},// [AR]O=/AX R/
+		{letters: ar, regex: /ar[aeiouy]+/i, phonemes: "EH R"},//[AR]#=/EH R/
+		{letters: as, regex: /^[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]as[aeiouy]+/i, phonemes: "EY S"},// ^[AS]#=/EY S/
+		{letters: a, regex: /awa/i, phonemes: "AX"},//[A]WA=/AX/
+		{letters: aw, regex: /aw/i, phonemes: "AO"},//[AW]=/AO/
+		{letters: any, regex: /^[bcdfghjklmnpqrstvwxz]*any/i, phonemes: "EH N IY"},// :[ANY]=/EH N IY/
+		{letters: a, regex: /a[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][^eiy][eiy][aeiouy]+/i, phonemes: "EY"},//[A]^+#=/EY/
+		{letters: ally, regex: /[aeiouy]+[bcdfghjklmnpqrstvwxz]*ally/i, phonemes: "AX L IY"},//#:[ALLY]=/AX L IY/
+		{letters: al, regex: /^al[aeiouy]+/i, phonemes: "AX L"},// [AL]#=/AX L/
+		{letters: again, regex: /again/i, phonemes: "AX G EH N"},//[AGAIN]=/AX G EH N/
+		{letters: ag, regex: /[aeiouy]+[bcdfghjklmnpqrstvwxz]*age/i, phonemes: "IH JH"},//#:[AG]E=/IH JH/
+		{letters: a, regex: /a[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][^eiy][eiy][bcdfghjklmnpqrstvwxz]*[aeiouy]+/i, phonemes: "AE"},//[A]^+:#=/AE/
+		{letters: a, regex: /^[bcdfghjklmnpqrstvwxz]*a[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][^eiy][eiy]$/i, phonemes: "EY"},// :[A]^+ =/EY/
+		{letters: a, regex: /a[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz](?:er)|(?:es)|(?:ed)|(?:ing)|e/i, phonemes: "EY"},//[A]^%=/EY/
+		{letters: arr, regex: /^arr/i, phonemes: "AX R"},// [ARR]=/AX R/
+		{letters: arr, regex: /arr/i, phonemes: "AE R"},//[ARR]=/AE R/
+		{letters: ar, regex: /^[bcdfghjklmnpqrstvwxz]*ar$/i, phonemes: "AA R"},// :[AR] =/AA R/
+		{letters: ar, regex: /ar$/i, phonemes: "ER"},//[AR] =/ER/
+		{letters: ar, regex: /ar/i, phonemes: "AA R"},//[AR]=/AA R/
+		{letters: air, regex: /air/i, phonemes: "EH R"},//[AIR]=/EH R/
+		{letters: ai, regex: /ai/i, phonemes: "EY"},//[AI]=/EY/
+		{letters: ay, regex: /ay/i, phonemes: "EY"},//[AY]=/EY/
+		{letters: au, regex: /au/i, phonemes: "AO"},//[AU]=/AO/
+		{letters: al, regex: /[aeiouy]+[bcdfghjklmnpqrstvwxz]*al$/i, phonemes: "AX L"},//#:[AL] =/AX L/
+		{letters: als, regex: /[aeiouy]+[bcdfghjklmnpqrstvwxz]*als$/i, phonemes: "AX L Z"},//#:[ALS] =/AX L Z/
+		{letters: alk, regex: /alk/i, phonemes: "AO K"},//[ALK]=/AO K/
+		{letters: al, regex: /al[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]/i, phonemes: "AO L"},//[AL]^=/AO L/
+		{letters: able, regex: /^[bcdfghjklmnpqrstvwxz]*able/i, phonemes: "EY B AX L"},// :[ABLE]=/EY B AX L/
+		{letters: ang, regex: /ang[^eiy][eiy]/i, phonemes: "EY N JH"},//[ANG]+=/EY N JH/
+		{letters: a, regex: /a/i, phonemes: "AE"}//[A]=/AE/
+	];
+
 }
 
 
