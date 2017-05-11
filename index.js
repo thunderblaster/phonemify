@@ -160,7 +160,7 @@ function translateViaNRL (wordToTranslate) {
 		original:wordToTranslate
 	};
 	while(word.leftToTranslate !== "") {
-		switch(word.leftToTranslate.chatAt(0) {
+		switch(word.leftToTranslate.chatAt(0)) {
 			case 'a':
 				//do the A checks here
 				break;
@@ -242,7 +242,7 @@ function translateViaNRL (wordToTranslate) {
 			default:
 				console.log("found a weird letter during NRL translation.");
 				
-		});
+		}
 	}
 }
 
