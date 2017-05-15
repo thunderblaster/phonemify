@@ -331,6 +331,27 @@ function cRuleEng (word) {
 	return translatedWord;
 }
 
+function dRuleEng (word) {
+	const dRules = [
+		{letters: "DED", regex: /[aeiouy]+[bcdfghjklmnpqrstvwxz]*ded$/i, phonemes: "D IH D", extra: NaN}, //#:[DED] =/D IH D/
+		{letters: "D", regex: /[^bdvgjlmnrwz][bdvgjlmnrwz]ed$/i, phonemes: "D", extra: 3}, //.E[D] =/D/
+		{letters: "D", regex: /[aeiouy]+[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]*ed$/i, phonemes: "T", extra: NaN}, //#^:E[D] =/T/
+		{letters: "DO", regex: /^do$/i, phonemes: "D UW", extra: 0}, // [DO] =/D UW/
+		{letters: "DOES", regex: /^does/i, phonemes: "D AH Z", extra: 0}, // [DOES]=/D AH Z/
+		{letters: "DOING", regex: /^doing/i, phonemes: "D UW IH NX", extra: 0}, // [DOING]=/D UW IH NX/
+		{letters: "DOW", regex: /^dow/i, phonemes: "D AW", extra: 0}, // [DOW]=/D AW/
+		{letters: "DU", regex: /dua/i, phonemes: "JH UW", extra: 0}, //[DU]A=/JH UW/
+		{letters: "D", regex: /d/i, phonemes: "D", extra: 0} //[D]=/D/
+	];
+	for(i=0; i<dRules.length; i++) {
+		var translatedWord = translateNRLRule(word, dRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
 
 //=================================================================
 //===== Number to words conversion ================================
