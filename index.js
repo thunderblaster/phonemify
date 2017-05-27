@@ -491,6 +491,192 @@ function iRuleEng (word) {
 	return translatedWord;
 }
 
+function jRuleEng (word) {
+	const jRules = [
+		{letters: "J", regex: /j/i, phonemes: "JH", extra: 0} //[J]=/JH/
+	];
+	for(i=0; i<jRules.length; i++) {
+		var translatedWord = translateNRLRule(word, jRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function kRuleEng (word) {
+	const kRules = [
+		{letters: "K", regex: /^kn/i, phonemes: "", extra: 1}, // [K]=/ /
+		{letters: "K", regex: /k/i, phonemes: "K", extra: 0} //[K]=/K/
+	];
+	for(i=0; i<kRules.length; i++) {
+		var translatedWord = translateNRLRule(word, kRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function lRuleEng (word) {
+	const lRules = [
+		{letters: "LO", regex: /loc[aeiouy]+/i, phonemes: "L OW", extra: 0}, //[LO]C#=/L OW/
+		{letters: "L", regex: /ll/i, phonemes: "", extra: 1}, //L[L]=/ /
+		{letters: "L", regex: /[aeiouy]+[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]*l(?:er)|(?:es)|(?:ed)|(?:ing)|e/i, phonemes: "AX L", extra: NaN}, //#^:[L]%=/AX L/
+		{letters: "LEAD", regex: /lead/i, phonemes: "L IY D", extra: 0}, //[LEAD]=/L IY D/
+		{letters: "L", regex: /l/i, phonemes: "L", extra: 0} //[L]=/L/
+	];
+	for(i=0; i<lRules.length; i++) {
+		var translatedWord = translateNRLRule(word, lRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function mRuleEng (word) {
+	const mRules = [
+		{letters: "MOV", regex: /mov/i, phonemes: "M UW V", extra: 0}, //[MOV]=/M UW V/
+		{letters: "M", regex: /m/i, phonemes: "M", extra: 0} //[M]=/M/
+	];
+	for(i=0; i<mRules.length; i++) {
+		var translatedWord = translateNRLRule(word, mRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function nRuleEng (word) {
+	const nRules = [
+		{letters: "NG", regex: /eng[^eiy][eiy]/i, phonemes: "N JH", extra: 1}, //E[NG]+=/N JH/
+		{letters: "NG", regex: /ngr/i, phonemes: "NX G", extra: 0}, //[NG]R=/NX G/
+		{letters: "NG", regex: /ng[aeiouy]+/i, phonemes: "NX G", extra: 0}, //[NG]#=/NX G/
+		{letters: "NGL", regex: /ngl(?:er)|(?:es)|(?:ed)|(?:ing)|e/i, phonemes: "NX G AX L", extra: 0}, //[NGL]%=/NX G AX L/
+		{letters: "NG", regex: /ng/i, phonemes: "NX", extra: 0}, //[NG]=/NX/
+		{letters: "NK", regex: /nk/i, phonemes: "NX K", extra: 0}, //[NK]=/NX K/
+		{letters: "NOW", regex: /^now$/i, phonemes: "N AW", extra: 1}, // [NOW] =/N AW/
+		{letters: "N", regex: /n/i, phonemes: "N", extra: 0} //[N]=/N/
+	];
+	for(i=0; i<nRules.length; i++) {
+		var translatedWord = translateNRLRule(word, nRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function oRuleEng (word) {
+	const oRules = [
+		{letters: "OF", regex: /of$/i, phonemes: "AX V", extra: 0}, //[OF] =/AX V/
+		{letters: "OROUGH", regex: /orough/i, phonemes: "ER OW", extra: 0}, //[OROUGH] =/ER OW/
+		{letters: "OR", regex: /[aeiouy]+[bcdfghjklmnpqrstvwxz]*or$/i, phonemes: "ER", extra: NaN}, //#:[OR] =/ER/
+		{letters: "ORS", regex: /[aeiouy]+[bcdfghjklmnpqrstvwxz]*ors$/i, phonemes: "ER Z", extra: NaN}, //#:[ORS] =/ER Z/
+		{letters: "OR", regex: /or/i, phonemes: "AO R", extra: 0}, //[OR]=/AO R/
+		{letters: "ONE", regex: /^one/i, phonemes: "W AH N", extra: 1}, // [ONE]=/W AH N/
+		{letters: "OW", regex: /ow/i, phonemes: "OW", extra: 0}, //[OW]=/OW/
+		{letters: "OVER", regex: /^over/i, phonemes: "OW V ER", extra: 1}, // [OVER]=/OW V ER/
+		{letters: "OV", regex: /ov/i, phonemes: "AH V", extra: 0}, //[OV]=/AH V/
+		{letters: "O", regex: /o[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz](?:er)|(?:es)|(?:ed)|(?:ing)|e/i, phonemes: "OW", extra: 0}, //[O]^%=/OW/
+		{letters: "O", regex: /o[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]en/i, phonemes: "OW", extra: 0}, //[O]^EN=/OW/
+		{letters: "O", regex: /o[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]i[aeiouy]+/i, phonemes: "OW", extra: 0}, //[O]^I#=/OW/
+		{letters: "OL", regex: /old/i, phonemes: "OW L", extra: 0}, //[OL]D=/OW L/
+		{letters: "OUGHT", regex: /ought/i, phonemes: "AO T", extra: 0}, //[OUGHT]=/AO T/
+		{letters: "OUGH", regex: /ough/i, phonemes: "AH F", extra: 0}, //[OUGH]=/AH F/
+		{letters: "OU", regex: /^ou/i, phonemes: "AW", extra: 1}, // [OU]=/AW/
+		{letters: "OU", regex: /hous[aeiouy]+/i, phonemes: "AW", extra: 1}, //H[OU]S#=/AW/
+		{letters: "OUS", regex: /ous/i, phonemes: "AX S", extra: 0}, //[OUS]=/AX S/
+		{letters: "OUR", regex: /our/i, phonemes: "AO R", extra: 0}, //[OUR]=/AO R/
+		{letters: "OULD", regex: /ould/i, phonemes: "UH D", extra: 0}, //[OULD]=/UH D/
+		{letters: "OU", regex: /[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]ou[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]/i, phonemes: "AH", extra: 2}, //^[OU]^L=/AH/
+		{letters: "OUP", regex: /oup/i, phonemes: "UW P", extra: 0}, //[OUP]=/UW P/
+		{letters: "OU", regex: /ou/i, phonemes: "AW", extra: 0}, //[OU]=/AW/
+		{letters: "OY", regex: /oy/i, phonemes: "OY", extra: 0}, //[OY]=/OY/
+		{letters: "OING", regex: /oing/i, phonemes: "OW IH NX", extra: 0}, //[OING]=/OW IH NX/
+		{letters: "OI", regex: /oi/i, phonemes: "OY", extra: 0}, //[OI]=/OY/
+		{letters: "OOR", regex: /oor/i, phonemes: "AO R", extra: 0}, //[OOR]=/AO R/
+		{letters: "OOK", regex: /ook/i, phonemes: "UH K", extra: 0}, //[OOK]=/UH K/
+		{letters: "OOD", regex: /ood/i, phonemes: "UH D", extra: 0}, //[OOD]=/UH D/
+		{letters: "OO", regex: /oo/i, phonemes: "UW", extra: 0}, //[OO]=/UW/
+		{letters: "OE", regex: /oe/i, phonemes: "OW", extra: 0}, //[O]E=/OW/
+		{letters: "O", regex: /o$/i, phonemes: "OW", extra: 0}, //[O] =/OW/
+		{letters: "OA", regex: /oa/i, phonemes: "OW", extra: 0}, //[OA]=/OW/
+		{letters: "ONLY", regex: /^only/i, phonemes: "OW N L IY", extra: 1}, // [ONLY]=/OW N L IY/
+		{letters: "ONCE", regex: /^once/i, phonemes: "W AH N S", extra: 1}, // [ONCE]=/W AH N S/
+		{letters: "ON'T", regex: /on't/i, phonemes: "OW N T", extra: 0}, //[ON'T]=/OW N T/
+		{letters: "O", regex: /con/i, phonemes: "AA", extra: 1}, //C[O]N=/AA/
+		{letters: "O", regex: /ong/i, phonemes: "AO", extra: 0}, //[O]NG=/AO/
+		{letters: "O", regex: /[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]*on/i, phonemes: "AH", extra: NaN}, //^:[O]N=/AH/
+		{letters: "ON", regex: /ion/i, phonemes: "AX N", extra: 1}, //I[ON]=/AX N/
+		{letters: "ON", regex: /[aeiouy]+[bcdfghjklmnpqrstvwxz]*on$/i, phonemes: "AX N", extra: NaN}, //#:[ON] =/AX N/
+		{letters: "ON", regex: /[aeiouy]+[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]on/i, phonemes: "AX N", extra: NaN}, //#^[ON]=/AX N/
+		{letters: "O", regex: /ost$/i, phonemes: "OW", extra: 0}, //[O]ST =/OW/
+		{letters: "OF", regex: /of[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]/i, phonemes: "AO F", extra: 0}, //[OF]^=/AO F/
+		{letters: "OTHER", regex: /other/i, phonemes: "AH DH ER", extra: 0}, //[OTHER]=/AH DH ER/
+		{letters: "OSS", regex: /oss/i, phonemes: "AO S", extra: 0}, //[OSS] =/AO S/
+		{letters: "OM", regex: /[aeiouy]+[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]*om/i, phonemes: "AH M", extra: NaN}, //#^:[OM]=/AH M/
+		{letters: "O", regex: /o/i, phonemes: "AA", extra: 0} //[O]=/AS/
+	];
+	for(i=0; i<oRules.length; i++) {
+		var translatedWord = translateNRLRule(word, oRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function pRuleEng (word) {
+	const pRules = [
+		{letters: "PH", regex: /ph/i, phonemes: "F", extra: 0}, //[PH]=/F/
+		{letters: "PEOP", regex: /peop/i, phonemes: "P IY P", extra: 0}, //[PEOP]=/P IY P/
+		{letters: "POW", regex: /pow/i, phonemes: "P AW", extra: 0}, //[POW]=/P AW/
+		{letters: "PUT", regex: /put$/i, phonemes: "P UH T", extra: 0}, //[PUT] =/P UH T/
+		{letters: "P", regex: /p/i, phonemes: "P", extra: 0} //[P]=/P/
+	];
+	for(i=0; i<pRules.length; i++) {
+		var translatedWord = translateNRLRule(word, pRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function qRuleEng (word) {
+	const qRules = [
+		{letters: "QUAR", regex: /quar/i, phonemes: "K W AO R", extra: 0}, //[QUAR]=/K W AO R/
+		{letters: "QU", regex: /qu/i, phonemes: "K W", extra: 0}, //[QU]=/K W/
+		{letters: "Q", regex: /q/i, phonemes: "K", extra: 0}, //[Q]=/K/
+	];
+	for(i=0; i<qRules.length; i++) {
+		var translatedWord = translateNRLRule(word, qRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function rRuleEng (word) {
+	const rRules = [
+		{letters: "RE", regex: /^re[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][aeiouy]+/i, phonemes: "R IY", extra: 1}, // [RE]^#=/R IY/
+		{letters: "R", regex: /r/i, phonemes: "R", extra: 0} //[R]=/R/
+	];
+	for(i=0; i<rRules.length; i++) {
+		var translatedWord = translateNRLRule(word, rRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+
+
 //=================================================================
 //===== Number to words conversion ================================
 //=================================================================
