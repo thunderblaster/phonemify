@@ -109,37 +109,24 @@ function checkIfAAVEGerund(word) {
 	Located At: http://www.dtic.mil/dtic/tr/fulltext/u2/a021929.pdf
 */
 
-/* # = 1 or more vowels
- * * = 1 or more consonants
- * . = a voiced consonant
- * $ = single consonant folled by an 'i' or 'e'
- * % = suffix such as 'e', 'es', 'ed', 'er', 'ing', 'ely'
- * & = a silibant
- * @ = a consonant after which long 'u' is pronounced as in 'rule', not 'mule'
- * ^ = a single consonant
- * + = a front vowel
- * : = 0 or more consonants
- */
-
-const vowel = ['a', 'e', 'i', 'o', 'u', 'y'];
-const consonant = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z'];
-const voiced = ['b', 'd', 'v', 'g', 'j', 'l', 'm', 'n', 'r', 'w', 'z'];
-const front = ['e', 'i', 'y'];
-const suffix = ['er', 'e', 'es', 'ed', 'ing'];
-const silibant = ['s', 'c', 'g', 'z', 'x', 'j', 'ch', 'sh'];
-const nonpal = ['t', 's', 'r', 'd', 'l', 'z', 'n', 'j', 'th', 'ch', 'sh'];
-
-const patternHash = /[aeiouy]+/i;
-const patternStar = /[bcdfghjklmnpqrstvwxz]+/i;
-const patternDot = /[^bdvgjlmnrwz][bdvgjlmnrwz]/i;
-const patternDollar = /[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][ei]/i;
-const patternPercent = /(?:er)|(?:es)|(?:ed)|(?:ing)|e/i;
-const patternAmp = /(?:ch)|(?:sh)|[scgzxj]/i;
-const patternAt = /(?:ch)|(?:sh)|(?:th)|[tsrdlznj]/i;
-const patternHat = /[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]/i;
-const patternPlus = /[^eiy][eiy]/i;
-const patternColon = /[bcdfghjklmnpqrstvwxz]*/i;
-
+// # = 1 or more vowels = /[aeiouy]+/i
+// * = 1 or more consonants = /[bcdfghjklmnpqrstvwxz]+/i
+// . = a voiced consonant = /[^bdvgjlmnrwz][bdvgjlmnrwz]/i
+// $ = single consonant folled by an 'i' or 'e' = /[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][ei]/i
+// % = suffix such as 'e', 'es', 'ed', 'er', 'ing', 'ely' = /(?:er)|(?:es)|(?:ed)|(?:ing)|e/i
+// & = a silibant = /(?:ch)|(?:sh)|[scgzxj]/i
+// @ = a consonant after which long 'u' is pronounced as in 'rule', not 'mule' = /(?:ch)|(?:sh)|(?:th)|[tsrdlznj]/i
+// ^ = a single consonant = /[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]/i
+// + = a front vowel = /[^eiy][eiy]/i
+// : = 0 or more consonants = /[bcdfghjklmnpqrstvwxz]*/i
+ 
+// vowel = ['a', 'e', 'i', 'o', 'u', 'y'];
+// consonant = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z'];
+// voiced = ['b', 'd', 'v', 'g', 'j', 'l', 'm', 'n', 'r', 'w', 'z'];
+// front = ['e', 'i', 'y'];
+// suffix = ['er', 'e', 'es', 'ed', 'ing'];
+// silibant = ['s', 'c', 'g', 'z', 'x', 'j', 'ch', 'sh'];
+// nonpal = ['t', 's', 'r', 'd', 'l', 'z', 'n', 'j', 'th', 'ch', 'sh'];
 
 function translateNRLRule (word, rule) { 
 	var matches = word.original.substring(word.pointer - rule.extra).match(rule.regex); 
@@ -160,84 +147,84 @@ function translateViaNRL (wordToTranslate) {
 		original:wordToTranslate
 	};
 	while(word.leftToTranslate !== "") {
-		switch(word.leftToTranslate.chatAt(0)) {
+		switch(word.leftToTranslate.charAt(0)) {
 			case 'a':
-				//do the A checks here
+				word = aRuleEng(word);
 				break;
 			case 'b':
-				//do the B checks here
+				word = bRuleEng(word);
 				break;
 			case 'c':
-				//do the C checks here
+				word = cRuleEng(word);
 				break;
 			case 'd':
-				//do the D checks here
+				word = dRuleEng(word);
 				break;
 			case 'e':
-				//do the E checks here
+				word = eRuleEng(word);
 				break;
 			case 'f':
-				//do the F checks here
+				word = eRuleEng(word);
 				break;
 			case 'g':
-				//do the G checks here
+				word = fRuleEng(word);
 				break;
 			case 'h':
-				//do the H checks here
+				word = hRuleEng(word);
 				break;
 			case 'i':
-				//do the I checks here
+				word = iRuleEng(word);
 				break;
 			case 'j':
-				//do the J checks here
+				word = jRuleEng(word);
 				break;
 			case 'k':
-				//do the K checks here
+				word = kRuleEng(word);
 				break;
 			case 'l':
-				//do the L checks here
+				word = lRuleEng(word);
 				break;
 			case 'm':
-				//do the M checks here
+				word = mRuleEng(word);
 				break;
 			case 'n':
-				//do the N checks here
+				word = nRuleEng(word);
 				break;
 			case 'o':
-				//do the O checks here
+				word = oRuleEng(word);
 				break;
 			case 'p':
-				//do the P checks here
+				word = pRuleEng(word);
 				break;
 			case 'q':
-				//do the Q checks here
+				word = qRuleEng(word);
 				break;
 			case 'r':
-				//do the R checks here
+				word = rRuleEng(word);
 				break;
 			case 's':
-				//do the S checks here
+				word = sRuleEng(word);
 				break;
 			case 't':
-				//do the T checks here
+				word = tRuleEng(word);
 				break;
 			case 'u':
-				//do the U checks here
+				word = uRuleEng(word);
 				break;
 			case 'v':
-				//do the V checks here
+				word = vRuleEng(word);
 				break;
 			case 'w':
-				//do the W checks here
+				word = wRuleEng(word);
 				break;
 			case 'x':
-				//do the X checks here
+				word = xRuleEng(word);
 				break;
 			case 'y':
-				//do the Y checks here
+				word = yRuleEng(word);
 				break;
 			case 'z':
-				//do the Z checks here
+				word = zRuleEng(word);
 				break;
 			default:
 				console.log("found a weird letter during NRL translation.");
