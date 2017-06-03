@@ -675,7 +675,192 @@ function rRuleEng (word) {
 	return translatedWord;
 }
 
+function sRuleEng (word) {
+	const sRules = [
+		{letters: "SH", regex: /sh/i, phonemes: "SH", extra: 0}, //[SH]=/SH/
+		{letters: "SION", regex: /[aeiouy]+sion/i, phonemes: "ZH AX N", extra: 1}, //#[SION]=/ZH AX N/
+		{letters: "SOME", regex: /some/i, phonemes: "S AH M", extra: 0}, //[SOME]=/S AH M/
+		{letters: "SUR", regex: /[aeiouy]+sur[aeiouy]+/i, phonemes: "ZH ER", extra: 1}, //#[SUR]#=/ZH ER/
+		{letters: "SUR", regex: /sur[aeiouy]+/i, phonemes: "SH ER", extra: 0}, //[SUR]#=/SH ER/
+		{letters: "SU", regex: /[aeiouy]+su[aeiouy]+/i, phonemes: "ZH UW", extra: 1}, //#[SU]#=/ZH UW/
+		{letters: "SSU", regex: /[aeiouy]+ssu[aeiouy]+/i, phonemes: "SH UW", extra: 1}, //#[SSU]#=/SH UW/
+		{letters: "SED", regex: /[aeiouy]+sed$/i, phonemes: "Z D", extra: 1}, //#[SED] =/Z D/
+		{letters: "S", regex: /[aeiouy]+s[aeiouy]+/i, phonemes: "Z", extra: 1}, //#[S]#=/Z/
+		{letters: "SAID", regex: /said/i, phonemes: "S EH D", extra: 0}, //[SAID]=/S EH D/
+		{letters: "SION", regex: /[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]sion/i, phonemes: "SH AX N", extra: 2}, //^[SION]=/SH AX N/
+		{letters: "S", regex: /s/i, phonemes: "", extra: 0}, //[S]S=/ /
+		{letters: "S", regex: /[^bdvgjlmnrwz][bdvgjlmnrwz]s$/i, phonemes: "Z", extra: 2}, //.[S] =/Z/
+		{letters: "S", regex: /[aeiouy]+[bcdfghjklmnpqrstvwxz]*[^bdvgjlmnrwz][bdvgjlmnrwz]es$/i, phonemes: "Z", extra: NaN}, //#:.E[S] =/Z/
+		{letters: "S", regex: /[aeiouy]+[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]*[aeiouy]+[aeiouy]+s$/i, phonemes: "Z", extra: NaN}, //#^:##[S] =/Z/
+		{letters: "S", regex: /[aeiouy]+[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]*[aeiouy]+s$/i, phonemes: "S", extra: NaN}, //#^:#[S] =/S/
+		{letters: "S", regex: /us$/i, phonemes: "S", extra: 1}, //U[S] =/S/
+		{letters: "S", regex: /^[bcdfghjklmnpqrstvwxz]*[aeiouy]+s$/i, phonemes: "Z", extra: NaN}, // :#[S] =/Z/
+		{letters: "SCH", regex: /^sch/i, phonemes: "S K", extra: 0}, // [SCH]=/S K/
+		{letters: "S", regex: /sc[^eiy][eiy]/i, phonemes: "", extra: 0}, //[S]C+=/ /
+		{letters: "S", regex: /[aeiouy]+sm/i, phonemes: "Z M", extra: 1}, //#[SM]=/Z M/
+		{letters: "SN'", regex: /sn'/i, phonemes: "Z AX N", extra: 1}, //#[SN]'=/Z AX N/
+		{letters: "S", regex: /s/i, phonemes: "S", extra: 0} //[S]=/S/
+	];
+	for(i=0; i<sRules.length; i++) {
+		var translatedWord = translateNRLRule(word, sRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
 
+function tRuleEng (word) {
+	const tRules = [
+		{letters: "THE", regex: /^the$/i, phonemes: "DH AX", extra: 1}, // [THE] =/DH AX/
+		{letters: "TO", regex: /to$/i, phonemes: "T UW", extra: 0}, //[TO] =/T UW/
+		{letters: "THAT", regex: /that$/i, phonemes: "DH AE T", extra: 0}, //[THAT] =/DH AE T/
+		{letters: "THIS", regex: /^this$/i, phonemes: "DH IH S", extra: 1}, // [THIS] =/DH IH S/
+		{letters: "THEY", regex: /^they/i, phonemes: "DH EY", extra: 1}, // [THEY]=/DH EY/
+		{letters: "THERE", regex: /^there/i, phonemes: "DH EH R", extra: 1}, // [THERE]=/DH EH R/
+		{letters: "THER", regex: /ther/i, phonemes: "DH ER", extra: 0}, //[THER]=/DH ER/
+		{letters: "THEIR", regex: /their/i, phonemes: "DH EH R", extra: 0}, //[THEIR]=/DH EH R/
+		{letters: "THAN", regex: /^than$/i, phonemes: "DH AE N", extra: 1}, // [THAN] =/DH AE N/
+		{letters: "THEM", regex: /^them$/i, phonemes: "DH EH M", extra: 1}, // [THEM] =/DH EH M/
+		{letters: "THESE", regex: /these$/i, phonemes: "DH IY Z", extra: 0}, //[THESE] =/DH IY Z/
+		{letters: "THEN", regex: /^then/i, phonemes: "DH EH N", extra: 1}, // [THEN]=/DH EH N/
+		{letters: "THROUGH", regex: /through/i, phonemes: "TH R UW", extra: 0}, //[THROUGH]=/TH R UW/
+		{letters: "THOSE", regex: /those/i, phonemes: "DH OW Z", extra: 0}, //[THOSE]=/DH OW Z/
+		{letters: "THOUGH", regex: /though$/i, phonemes: "DH OW", extra: 0}, //[THOUGH] =/DH OW/
+		{letters: "THUS", regex: /^thus/i, phonemes: "DH AH S", extra: 1}, // [THUS]=/DH AH S/
+		{letters: "TH", regex: /th/i, phonemes: "TH", extra: 0}, //[TH]=/TH/
+		{letters: "TED", regex: /[aeiouy]+[bcdfghjklmnpqrstvwxz]*ted$/i, phonemes: "T IH D", extra: NaN}, //#:[TED] =/T IH D/
+		{letters: "TI", regex: /sti[aeiouy]+n/i, phonemes: "CH", extra: 0}, //S[TI]#N=/CH/
+		{letters: "TI", regex: /tio/i, phonemes: "SH", extra: 0}, //[TI]O=/SH/
+		{letters: "TI", regex: /tia/i, phonemes: "SH", extra: 0}, //[TI]A=/SH/
+		{letters: "TIEN", regex: /tien/i, phonemes: "SH AX N", extra: 0}, //[TIEN]=/SH AX N/
+		{letters: "TUR", regex: /tur[aeiouy]+/i, phonemes: "CH ER", extra: 0}, //[TUR]#=/CH ER/
+		{letters: "TU", regex: /tua/i, phonemes: "CH UW", extra: 0}, //[TU]A=/CH UW/
+		{letters: "TWO", regex: /^two/i, phonemes: "T UW", extra: 1}, // [TWO]=/T UW/
+		{letters: "T", regex: /t/i, phonemes: "T", extra: 0} //[T]=/T/
+	];
+	for(i=0; i<tRules.length; i++) {
+		var translatedWord = translateNRLRule(word, tRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function uRuleEng (word) {
+	const uRules = [
+		{letters: "UN", regex: /^uni/i, phonemes: "Y UW N", extra: 1}, // [UN]I=/Y UW N/
+		{letters: "UN", regex: /^un/i, phonemes: "AH N", extra: 1}, // [UN]=/AH N/
+		{letters: "UPON", regex: /^upon/i, phonemes: "AX P AO N", extra: 1}, // [UPON]=/AX P AO N/
+		{letters: "UR", regex: /(?:ch)|(?:sh)|(?:th)|[tsrdlznj]ur[aeiouy]+/i, phonemes: "UH R", extra: 1}, //@[UR]#=/UH R/
+		{letters: "UR", regex: /ur[aeiouy]+/i, phonemes: "Y UH R", extra: 0}, //[UR]#=/Y UH R/
+		{letters: "UR", regex: /ur/i, phonemes: "ER", extra: 0}, //[UR]=/ER/
+		{letters: "U", regex: /u[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]$/i, phonemes: "AH", extra: 0}, //[U]^ =/AH/
+		{letters: "U", regex: /u[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]/i, phonemes: "AH", extra: 0}, //[U]^^=/AH/
+		{letters: "U", regex: /uy/i, phonemes: "AY", extra: 0}, //[UY]=/AY/
+		{letters: "U", regex: /^gu[aeiouy]+/i, phonemes: "", extra: 2}, // G[U]#=/ /
+		{letters: "U", regex: /gu(?:er)|(?:es)|(?:ed)|(?:ing)|e/i, phonemes: "", extra: 2}, //G[U]%=/ /
+		{letters: "U", regex: /gu[aeiouy]+/i, phonemes: "W", extra: 1}, //G[U]#=/W/
+		{letters: "U", regex: /[aeiouy]+nu/i, phonemes: "Y UW", extra: 2}, //#N[U]=/Y UW/
+		{letters: "U", regex: /(?:ch)|(?:sh)|(?:th)|[tsrdlznj]u/i, phonemes: "UW", extra: 1}, //@[U]=/UW/
+		{letters: "U", regex: /u/i, phonemes: "Y UW", extra: 0} //[U]=/Y UW/
+	];
+	for(i=0; i<uRules.length; i++) {
+		var translatedWord = translateNRLRule(word, uRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function vRuleEng (word) {
+	const vRules = [
+		{letters: "VIEW", regex: /view/i, phonemes: "V Y UW", extra: 0}, //[VIEW]=/V Y UW/
+		{letters: "V", regex: /v/i, phonemes: "V", extra: 0} //[V]=/V/
+	];
+	for(i=0; i<vRules.length; i++) {
+		var translatedWord = translateNRLRule(word, vRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function wRuleEng (word) {
+	const wRules = [
+		{letters: "WERE", regex: /^were/i, phonemes: "W ER", extra: 1}, // [WERE]=/W ER/
+		{letters: "WA", regex: /was/i, phonemes: "W AA", extra: 0}, //[WA]S=/W AA/
+		{letters: "WA", regex: /wat/i, phonemes: "W AA", extra: 0}, //[WA]T=/W AA/
+		{letters: "WHERE", regex: /where/i, phonemes: "WH EH R", extra: 0}, //[WHERE]=/WH EH R/
+		{letters: "WHAT", regex: /what/i, phonemes: "WH AA T", extra: 0}, //[WHAT]=/WH AA T/
+		{letters: "WHOL", regex: /whol/i, phonemes: "HH OW L", extra: 0}, //[WHOL]=/HH OW L/
+		{letters: "WHO", regex: /who/i, phonemes: "HH UW", extra: 0}, //[WHO]=/HH UW/
+		{letters: "WH", regex: /wh/i, phonemes: "WH", extra: 0}, //[WH]=/WH/
+		{letters: "WAR", regex: /war/i, phonemes: "W AO R", extra: 0}, //[WAR]=/W AO R/
+		{letters: "WOR", regex: /wor[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]/i, phonemes: "W ER", extra: 0}, //[WOR]^=/W ER/
+		{letters: "WR", regex: /wr/i, phonemes: "WR", extra: 0}, //[WR]=/R/
+		{letters: "W", regex: /w/i, phonemes: "W", extra: 0} //[W]=/W/
+	];
+	for(i=0; i<wRules.length; i++) {
+		var translatedWord = translateNRLRule(word, wRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function xRuleEng (word) {
+	const xRules = [
+		{letters: "X", regex: /x/i, phonemes: "K S", extra: 0} //[X]=/K S/
+	];
+	for(i=0; i<xRules.length; i++) {
+		var translatedWord = translateNRLRule(word, xRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function yRuleEng (word) {
+	const yRules = [
+		{letters: "YOUNG", regex: /young/i, phonemes: "Y AH NX", extra: 0}, //[YOUNG]=/Y AH NX/
+		{letters: "YOU", regex: /^you/i, phonemes: "Y UW", extra: 1}, // [YOU]=/Y UW/
+		{letters: "YES", regex: /^yes/i, phonemes: "Y EH S", extra: 1}, // [YES]=/Y EH S/
+		{letters: "Y", regex: /^y/i, phonemes: "Y", extra: 1}, // [Y]=/Y/
+		{letters: "Y", regex: /[aeiouy]+[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]*y$/i, phonemes: "IY", extra: NaN}, //#^:[Y] =/IY/
+		{letters: "Y", regex: /[aeiouy]+[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]*yi/i, phonemes: "IY", extra: NaN}, //#^:[Y]I=/IY/
+		{letters: "Y", regex: /^[bcdfghjklmnpqrstvwxz]*y$/i, phonemes: "AY", extra: NaN}, // :[Y] =/AY/
+		{letters: "Y", regex: /^[bcdfghjklmnpqrstvwxz]*y[aeiouy]+/i, phonemes: "AY", extra: NaN}, // :[Y]#=/AY/
+		{letters: "Y", regex: /^[bcdfghjklmnpqrstvwxz]*y[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][^eiy][eiy][bcdfghjklmnpqrstvwxz]*[aeiouy]+/i, phonemes: "IH", extra: NaN}, // :[Y]^+:#=/IH/
+		{letters: "Y", regex: /^[bcdfghjklmnpqrstvwxz]*y[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][aeiouy]+/i, phonemes: "AY", extra: NaN}, // :[Y]^#=/AY/
+		{letters: "Y", regex: /y/i, phonemes: "IH", extra: 0} //[Y]=/IH/
+	];
+	for(i=0; i<yRules.length; i++) {
+		var translatedWord = translateNRLRule(word, yRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
+
+function zRuleEng (word) {
+	const zRules = [
+		{letters: "Z", regex: /z/i, phonemes: "Z", extra: 0} //[Z]=/Z/
+	];
+	for(i=0; i<zRules.length; i++) {
+		var translatedWord = translateNRLRule(word, zRules[i]);
+		if(translatedWord) {
+			break;
+		}
+	}
+	return translatedWord;
+}
 
 //=================================================================
 //===== Number to words conversion ================================
