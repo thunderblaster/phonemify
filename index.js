@@ -58,7 +58,12 @@ exports.textToPhonemes = function convert(rawInputToPhonemize) {
 					if(thisPhoneme) {
 						phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeperator;
 					} else {
-						return "error: couldn't find word '" + thisWord + "'";
+						var thisPhoneme = translateViaNRL(thisWord)
+						if(thisPhoneme) {
+							phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeperator;
+						} else {
+							return "error: couldn't find word '" + thisWord + "' and failed to translate it via NRL.";
+						}
 					}
 				}
 			}
@@ -144,86 +149,88 @@ function translateViaNRL (wordToTranslate) {
 	var word = {
 		pointer:0,
 		translated:"",
-		original:wordToTranslate
+		original:wordToTranslate,
+		leftToTranslate:wordToTranslate
 	};
 	while(word.leftToTranslate !== "") {
+		console.log(word.leftToTranslate.charAt(0));
 		switch(word.leftToTranslate.charAt(0)) {
-			case 'a':
+			case 'A':
 				word = aRuleEng(word);
 				break;
-			case 'b':
+			case 'B':
 				word = bRuleEng(word);
 				break;
-			case 'c':
+			case 'C':
 				word = cRuleEng(word);
 				break;
-			case 'd':
+			case 'D':
 				word = dRuleEng(word);
 				break;
-			case 'e':
+			case 'E':
 				word = eRuleEng(word);
 				break;
-			case 'f':
+			case 'F':
 				word = eRuleEng(word);
 				break;
-			case 'g':
+			case 'G':
 				word = fRuleEng(word);
 				break;
-			case 'h':
+			case 'H':
 				word = hRuleEng(word);
 				break;
-			case 'i':
+			case 'I':
 				word = iRuleEng(word);
 				break;
-			case 'j':
+			case 'J':
 				word = jRuleEng(word);
 				break;
-			case 'k':
+			case 'K':
 				word = kRuleEng(word);
 				break;
-			case 'l':
+			case 'L':
 				word = lRuleEng(word);
 				break;
-			case 'm':
+			case 'M':
 				word = mRuleEng(word);
 				break;
-			case 'n':
+			case 'N':
 				word = nRuleEng(word);
 				break;
-			case 'o':
+			case 'O':
 				word = oRuleEng(word);
 				break;
-			case 'p':
+			case 'P':
 				word = pRuleEng(word);
 				break;
-			case 'q':
+			case 'Q':
 				word = qRuleEng(word);
 				break;
-			case 'r':
+			case 'R':
 				word = rRuleEng(word);
 				break;
-			case 's':
+			case 'S':
 				word = sRuleEng(word);
 				break;
-			case 't':
+			case 'T':
 				word = tRuleEng(word);
 				break;
-			case 'u':
+			case 'U':
 				word = uRuleEng(word);
 				break;
-			case 'v':
+			case 'V':
 				word = vRuleEng(word);
 				break;
-			case 'w':
+			case 'W':
 				word = wRuleEng(word);
 				break;
-			case 'x':
+			case 'X':
 				word = xRuleEng(word);
 				break;
-			case 'y':
+			case 'Y':
 				word = yRuleEng(word);
 				break;
-			case 'z':
+			case 'Z':
 				word = zRuleEng(word);
 				break;
 			default:
