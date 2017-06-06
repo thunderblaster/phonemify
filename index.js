@@ -58,7 +58,7 @@ exports.textToPhonemes = function convert(rawInputToPhonemize) {
 					if(thisPhoneme) {
 						phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeperator;
 					} else {
-						var thisPhoneme = translateViaNRL(thisWord)
+						var thisPhoneme = translateViaNRL(thisWord); //translate using NRL algorithm
 						if(thisPhoneme) {
 							phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeperator;
 						} else {
@@ -138,6 +138,7 @@ function translateNRLRule (word, rule) {
 	if(matches) {
 		word.translated = word.translated + rule.phonemes + " ";
 		word.pointer = word.pointer + rule.letters.length;
+		word.leftToTranslate = word.leftToTranslate.substring(rule.letters.length);
 		return word;
 	} else {
 		return false;
@@ -153,7 +154,6 @@ function translateViaNRL (wordToTranslate) {
 		leftToTranslate:wordToTranslate
 	};
 	while(word.leftToTranslate !== "") {
-		console.log(word.leftToTranslate.charAt(0));
 		switch(word.leftToTranslate.charAt(0)) {
 			case 'A':
 				word = aRuleEng(word);
@@ -238,6 +238,7 @@ function translateViaNRL (wordToTranslate) {
 				
 		}
 	}
+	return(word.translated.trim());
 }
 
 function aRuleEng (word) {
@@ -275,8 +276,8 @@ function aRuleEng (word) {
 		{letters: "ANG", regex: /ang[^eiy][eiy]/i, phonemes: "EY N JH", extra: 0},//[ANG]+=/EY N JH/
 		{letters: "A", regex: /a/i, phonemes: "AE", extra: 0}//[A]=/AE/
 	];
-	for(i=0; i<aRules.length; i++) {
-		var translatedWord = translateNRLRule(word, aRules[i]);
+	for(l=0; l<aRules.length; l++) {
+		var translatedWord = translateNRLRule(word, aRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -293,8 +294,8 @@ function bRuleEng (word) {
 		{letters: "BUIL", regex: /buil/i, phonemes: "B IH L", extra: 0}, //[BUIL]=/B IH L/
 		{letters: "B", regex: /b/i, phonemes: "B", extra: 0} //[BUIL]=/B IH L/
 	];
-	for(i=0; i<bRules.length; i++) {
-		var translatedWord = translateNRLRule(word, bRules[i]);
+	for(l=0; l<bRules.length; l++) {
+		var translatedWord = translateNRLRule(word, bRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -316,8 +317,8 @@ function cRuleEng (word) {
 		{letters: "COM", regex: /com(?:er)|(?:es)|(?:ed)|(?:ing)|e/i, phonemes: "K AH M", extra: 0}, //[COM]%=/K AH M/
 		{letters: "C", regex: /c/i, phonemes: "K", extra: 0} //[C]=/K/
 	];
-	for(i=0; i<cRules.length; i++) {
-		var translatedWord = translateNRLRule(word, cRules[i]);
+	for(l=0; l<cRules.length; l++) {
+		var translatedWord = translateNRLRule(word, cRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -337,8 +338,8 @@ function dRuleEng (word) {
 		{letters: "DU", regex: /dua/i, phonemes: "JH UW", extra: 0}, //[DU]A=/JH UW/
 		{letters: "D", regex: /d/i, phonemes: "D", extra: 0} //[D]=/D/
 	];
-	for(i=0; i<dRules.length; i++) {
-		var translatedWord = translateNRLRule(word, dRules[i]);
+	for(l=0; l<dRules.length; l++) {
+		var translatedWord = translateNRLRule(word, dRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -384,8 +385,8 @@ function eRuleEng (word) {
 		{letters: "EU", regex: /eu/i, phonemes: "Y UW", extra: 0}, //[EU]=/Y UW/
 		{letters: "E", regex: /e/i, phonemes: "EH", extra: 0} //[E]=/EH/
 	];
-	for(i=0; i<eRules.length; i++) {
-		var translatedWord = translateNRLRule(word, eRules[i]);
+	for(l=0; l<eRules.length; l++) {
+		var translatedWord = translateNRLRule(word, eRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -398,8 +399,8 @@ function fRuleEng (word) {
 		{letters: "FUL", regex: /ful/i, phonemes: "F UH L", extra: 0}, //[FUL]=/F UH L/
 		{letters: "F", regex: /f/i, phonemes: "F", extra: 0} //[F]=/F/
 	];
-	for(i=0; i<fRules.length; i++) {
-		var translatedWord = translateNRLRule(word, fRules[i]);
+	for(l=0; l<fRules.length; l++) {
+		var translatedWord = translateNRLRule(word, fRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -419,8 +420,8 @@ function gRuleEng (word) {
 		{letters: "GH", regex: /[aeiouy]+gh/i, phonemes: "", extra: NaN}, //#[GH]=/ /
 		{letters: "G", regex: /g/i, phonemes: "G", extra: 0} //[G]=/G/
 	];
-	for(i=0; i<gRules.length; i++) {
-		var translatedWord = translateNRLRule(word, gRules[i]);
+	for(l=0; l<gRules.length; l++) {
+		var translatedWord = translateNRLRule(word, gRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -437,8 +438,8 @@ function hRuleEng (word) {
 		{letters: "H", regex: /h[aeiouy]+/i, phonemes: "HH", extra: 0}, //[H]#=/HH/
 		{letters: "H", regex: /h/i, phonemes: "", extra: 0} //[H]=/ /
 	];
-	for(i=0; i<hRules.length; i++) {
-		var translatedWord = translateNRLRule(word, hRules[i]);
+	for(l=0; l<hRules.length; l++) {
+		var translatedWord = translateNRLRule(word, hRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -476,8 +477,8 @@ function iRuleEng (word) {
 		{letters: "IQUE", regex: /ique/i, phonemes: "IY K", extra: 0}, //[IQUE]=/IY K/
 		{letters: "I", regex: /i/i, phonemes: "IH", extra: 0} //[I]=/IH/
 	];
-	for(i=0; i<iRules.length; i++) {
-		var translatedWord = translateNRLRule(word, iRules[i]);
+	for(l=0; l<iRules.length; l++) {
+		var translatedWord = translateNRLRule(word, iRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -489,8 +490,8 @@ function jRuleEng (word) {
 	const jRules = [
 		{letters: "J", regex: /j/i, phonemes: "JH", extra: 0} //[J]=/JH/
 	];
-	for(i=0; i<jRules.length; i++) {
-		var translatedWord = translateNRLRule(word, jRules[i]);
+	for(l=0; l<jRules.length; l++) {
+		var translatedWord = translateNRLRule(word, jRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -503,8 +504,8 @@ function kRuleEng (word) {
 		{letters: "K", regex: /^kn/i, phonemes: "", extra: 1}, // [K]=/ /
 		{letters: "K", regex: /k/i, phonemes: "K", extra: 0} //[K]=/K/
 	];
-	for(i=0; i<kRules.length; i++) {
-		var translatedWord = translateNRLRule(word, kRules[i]);
+	for(l=0; l<kRules.length; l++) {
+		var translatedWord = translateNRLRule(word, kRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -520,8 +521,8 @@ function lRuleEng (word) {
 		{letters: "LEAD", regex: /lead/i, phonemes: "L IY D", extra: 0}, //[LEAD]=/L IY D/
 		{letters: "L", regex: /l/i, phonemes: "L", extra: 0} //[L]=/L/
 	];
-	for(i=0; i<lRules.length; i++) {
-		var translatedWord = translateNRLRule(word, lRules[i]);
+	for(l=0; l<lRules.length; l++) {
+		var translatedWord = translateNRLRule(word, lRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -534,8 +535,8 @@ function mRuleEng (word) {
 		{letters: "MOV", regex: /mov/i, phonemes: "M UW V", extra: 0}, //[MOV]=/M UW V/
 		{letters: "M", regex: /m/i, phonemes: "M", extra: 0} //[M]=/M/
 	];
-	for(i=0; i<mRules.length; i++) {
-		var translatedWord = translateNRLRule(word, mRules[i]);
+	for(l=0; l<mRules.length; l++) {
+		var translatedWord = translateNRLRule(word, mRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -554,8 +555,8 @@ function nRuleEng (word) {
 		{letters: "NOW", regex: /^now$/i, phonemes: "N AW", extra: 1}, // [NOW] =/N AW/
 		{letters: "N", regex: /n/i, phonemes: "N", extra: 0} //[N]=/N/
 	];
-	for(i=0; i<nRules.length; i++) {
-		var translatedWord = translateNRLRule(word, nRules[i]);
+	for(l=0; l<nRules.length; l++) {
+		var translatedWord = translateNRLRule(word, nRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -614,8 +615,8 @@ function oRuleEng (word) {
 		{letters: "OM", regex: /[aeiouy]+[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz]*om/i, phonemes: "AH M", extra: NaN}, //#^:[OM]=/AH M/
 		{letters: "O", regex: /o/i, phonemes: "AA", extra: 0} //[O]=/AS/
 	];
-	for(i=0; i<oRules.length; i++) {
-		var translatedWord = translateNRLRule(word, oRules[i]);
+	for(l=0; l<oRules.length; l++) {
+		var translatedWord = translateNRLRule(word, oRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -631,8 +632,8 @@ function pRuleEng (word) {
 		{letters: "PUT", regex: /put$/i, phonemes: "P UH T", extra: 0}, //[PUT] =/P UH T/
 		{letters: "P", regex: /p/i, phonemes: "P", extra: 0} //[P]=/P/
 	];
-	for(i=0; i<pRules.length; i++) {
-		var translatedWord = translateNRLRule(word, pRules[i]);
+	for(l=0; l<pRules.length; l++) {
+		var translatedWord = translateNRLRule(word, pRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -646,8 +647,8 @@ function qRuleEng (word) {
 		{letters: "QU", regex: /qu/i, phonemes: "K W", extra: 0}, //[QU]=/K W/
 		{letters: "Q", regex: /q/i, phonemes: "K", extra: 0}, //[Q]=/K/
 	];
-	for(i=0; i<qRules.length; i++) {
-		var translatedWord = translateNRLRule(word, qRules[i]);
+	for(l=0; l<qRules.length; l++) {
+		var translatedWord = translateNRLRule(word, qRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -660,8 +661,8 @@ function rRuleEng (word) {
 		{letters: "RE", regex: /^re[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][aeiouy]+/i, phonemes: "R IY", extra: 1}, // [RE]^#=/R IY/
 		{letters: "R", regex: /r/i, phonemes: "R", extra: 0} //[R]=/R/
 	];
-	for(i=0; i<rRules.length; i++) {
-		var translatedWord = translateNRLRule(word, rRules[i]);
+	for(l=0; l<rRules.length; l++) {
+		var translatedWord = translateNRLRule(word, rRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -695,8 +696,8 @@ function sRuleEng (word) {
 		{letters: "SN'", regex: /sn'/i, phonemes: "Z AX N", extra: 1}, //#[SN]'=/Z AX N/
 		{letters: "S", regex: /s/i, phonemes: "S", extra: 0} //[S]=/S/
 	];
-	for(i=0; i<sRules.length; i++) {
-		var translatedWord = translateNRLRule(word, sRules[i]);
+	for(l=0; l<sRules.length; l++) {
+		var translatedWord = translateNRLRule(word, sRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -733,8 +734,8 @@ function tRuleEng (word) {
 		{letters: "TWO", regex: /^two/i, phonemes: "T UW", extra: 1}, // [TWO]=/T UW/
 		{letters: "T", regex: /t/i, phonemes: "T", extra: 0} //[T]=/T/
 	];
-	for(i=0; i<tRules.length; i++) {
-		var translatedWord = translateNRLRule(word, tRules[i]);
+	for(l=0; l<tRules.length; l++) {
+		var translatedWord = translateNRLRule(word, tRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -760,8 +761,8 @@ function uRuleEng (word) {
 		{letters: "U", regex: /(?:ch)|(?:sh)|(?:th)|[tsrdlznj]u/i, phonemes: "UW", extra: 1}, //@[U]=/UW/
 		{letters: "U", regex: /u/i, phonemes: "Y UW", extra: 0} //[U]=/Y UW/
 	];
-	for(i=0; i<uRules.length; i++) {
-		var translatedWord = translateNRLRule(word, uRules[i]);
+	for(l=0; l<uRules.length; l++) {
+		var translatedWord = translateNRLRule(word, uRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -774,8 +775,8 @@ function vRuleEng (word) {
 		{letters: "VIEW", regex: /view/i, phonemes: "V Y UW", extra: 0}, //[VIEW]=/V Y UW/
 		{letters: "V", regex: /v/i, phonemes: "V", extra: 0} //[V]=/V/
 	];
-	for(i=0; i<vRules.length; i++) {
-		var translatedWord = translateNRLRule(word, vRules[i]);
+	for(l=0; l<vRules.length; l++) {
+		var translatedWord = translateNRLRule(word, vRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -798,8 +799,8 @@ function wRuleEng (word) {
 		{letters: "WR", regex: /wr/i, phonemes: "WR", extra: 0}, //[WR]=/R/
 		{letters: "W", regex: /w/i, phonemes: "W", extra: 0} //[W]=/W/
 	];
-	for(i=0; i<wRules.length; i++) {
-		var translatedWord = translateNRLRule(word, wRules[i]);
+	for(l=0; l<wRules.length; l++) {
+		var translatedWord = translateNRLRule(word, wRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -811,8 +812,8 @@ function xRuleEng (word) {
 	const xRules = [
 		{letters: "X", regex: /x/i, phonemes: "K S", extra: 0} //[X]=/K S/
 	];
-	for(i=0; i<xRules.length; i++) {
-		var translatedWord = translateNRLRule(word, xRules[i]);
+	for(l=0; l<xRules.length; l++) {
+		var translatedWord = translateNRLRule(word, xRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -834,8 +835,8 @@ function yRuleEng (word) {
 		{letters: "Y", regex: /^[bcdfghjklmnpqrstvwxz]*y[^bcdfghjklmnpqrstvwxz][bcdfghjklmnpqrstvwxz][aeiouy]+/i, phonemes: "AY", extra: NaN}, // :[Y]^#=/AY/
 		{letters: "Y", regex: /y/i, phonemes: "IH", extra: 0} //[Y]=/IH/
 	];
-	for(i=0; i<yRules.length; i++) {
-		var translatedWord = translateNRLRule(word, yRules[i]);
+	for(l=0; l<yRules.length; l++) {
+		var translatedWord = translateNRLRule(word, yRules[l]);
 		if(translatedWord) {
 			break;
 		}
@@ -847,8 +848,8 @@ function zRuleEng (word) {
 	const zRules = [
 		{letters: "Z", regex: /z/i, phonemes: "Z", extra: 0} //[Z]=/Z/
 	];
-	for(i=0; i<zRules.length; i++) {
-		var translatedWord = translateNRLRule(word, zRules[i]);
+	for(l=0; l<zRules.length; l++) {
+		var translatedWord = translateNRLRule(word, zRules[l]);
 		if(translatedWord) {
 			break;
 		}
