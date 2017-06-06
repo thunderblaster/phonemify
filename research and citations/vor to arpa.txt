@@ -1,0 +1,34 @@
+off		AA F F				AO1 F			//should both F's be documented in NRL?
+fall	F AE				F AO1 L			//obviously an issue with NRL here
+frost	F R OW  T			F R AO1 S T		//obviously an issue with NRL here
+
+father	F EY DH ER			F AA1 DH ER		//NRL seems suspicious....
+cot		K AA T				K AA1 T
+
+bee		B					B IY1			//NRL seems suspicious....
+she		SH IY				SH IY1
+
+you		Y UW				Y UW1
+new		NX G AX L			N UW1			//obviously an issue with NRL here
+food	F UH D				F UW1 D
+
+red		R IY D				R EH1 D			//is IY just mapped weird?
+men		M IY N				M EH1 N			//is IY just mapped weird?
+
+big		B IH G				B IH1 G
+win		W IH N				W IH1 N
+
+should	SH UH D				SH UH1 D
+could	K UH D				K UH1 D
+
+but		B Y UW T 			B AH1 T			//NRL seems suspicious....
+sun		UW N				S AH1 N			//obviously an issue with NRL here
+
+sofa	AA F AX				S OW1 F AH0		//obviously an issue with NRL here
+alone	AX L OW NX G AX L	AH0 L OW1 N		//obviously an issue with NRL here
+
+discus	D IH  K Y UW		D IH1 S K AX0 S	//obviously an issue with NRL here
+discuss	D IH  K Y UW		D IH0 S K AH1 S	//obviously an issue with NRL here
+
+at		AE T				AE1 T	
+fast	F AE  T				F AE1 S T		//obviously an issue with NRL here

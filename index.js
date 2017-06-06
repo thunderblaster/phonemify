@@ -146,7 +146,7 @@ function translateNRLRule (word, rule) {
 }
 
 
-function translateViaNRL (wordToTranslate) {
+exports.translateViaNRL = function translateViaNRL (wordToTranslate) {
 	var word = {
 		pointer:0,
 		translated:"",
@@ -171,10 +171,10 @@ function translateViaNRL (wordToTranslate) {
 				word = eRuleEng(word);
 				break;
 			case 'F':
-				word = eRuleEng(word);
+				word = fRuleEng(word);
 				break;
 			case 'G':
-				word = fRuleEng(word);
+				word = gRuleEng(word);
 				break;
 			case 'H':
 				word = hRuleEng(word);
