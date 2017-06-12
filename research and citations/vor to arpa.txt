@@ -1,34 +1,110 @@
-off		AA F F				AO1 F			//should both F's be documented in NRL?
-fall	F AE L				F AO1 L			//obviously an issue with NRL here
-frost	F R OW S T			F R AO1 S T		//obviously an issue with NRL here
+off			AA F F				AO1 F				//should both F's be documented in NRL?
+fall		F AO L				F AO1 L			
+frost		F R OW S T			F R AO1 S T			//working as designed?
 
-father	F EY DH ER			F AA1 DH ER		//NRL seems suspicious....
-cot		K AA T				K AA1 T
+father		F AE DH ER			F AA1 DH ER			//working as designed?
+cot			K AA T				K AA1 T
 
-bee		B					B IY1			//NRL seems suspicious....
-she		SH IY				SH IY1
+bee			B IY				B IY1			
+she			SH IY				SH IY1
 
-you		Y UW				Y UW1
-new		N IY W				N UW1			
-food	F UH D				F UW1 D
+you			Y UW				Y UW1
+new			N UW				N UW1					
+food		F UH D				F UW1 D				//working as designed?
 
-red		R IY D				R EH1 D			//is IY just mapped weird?
-men		M IY N				M EH1 N			//is IY just mapped weird?
+red			R EH D				R EH1 D			
+men			M EH N				M EH1 N			
 
-big		B IH G				B IH1 G
-win		W IH N				W IH1 N
+big			B IH G				B IH1 G
+win			W IH N				W IH1 N
 
-should	SH UH D				SH UH1 D
-could	K UH D				K UH1 D
+should		SH UH D				SH UH1 D
+could		K UH D				K UH1 D
 
-but		B Y UW T 			B AH1 T			//NRL seems suspicious....
-sun		S UW N				S AH1 N			
+but			B AH T	 			B AH1 T			
+sun			S AH N				S AH1 N			
 
-sofa	S AA F AX			S OW1 F AH0		
-alone	AX L AH N			AH0 L OW1 N		
+sofa		S AA F AX			S OW1 F AH0			//working as designed?
+alone		AX L OW N			AH0 L OW1 N			//working as designed?
 
-discus	D IH S K Y UW		D IH1 S K AX0 S	
-discuss	D IH S K Y UW		D IH0 S K AH1 S	
+discus		D IH S K AH S		D IH1 S K AX0 S	
+discuss		D IH S K AH S		D IH0 S K AH1 S		//spacing issue
 
-at		AE T				AE1 T	
-fast	F AE S T			F AE1 S T		
+at			AE T				AE1 T	
+fast		F AE S T			F AE1 S T		
+
+say			S EY				S EY1
+eight		EY T				EY1 T
+
+my			M AY				M AY1
+why			WH AY				W AY1				//WH=W?
+ride		R AY D				R AY1 D
+
+show		SH OW				SH OW1
+coat		K OW T				K OW1 T
+
+how			HH AW				HH AW1
+now			N AW				N AW1
+
+boy			B OY				B OY1
+toy			T OY				T OY1
+
+her			HH ER				HH ER1
+bird		B ER D				B ER1 D
+hurt		HH ER T				HH ER1 T
+nurse		N ER S				N ER1 S
+
+air			EH R				EH1 R
+where		WH EH R				W EH1 R 			//WH=W?
+hair		HH EH R				HH EH1 R
+
+cure		K Y UH R			K Y UH1 R
+bureau		B Y UH R IY Y UW	B Y UH1 R OW0		//working as designed?
+detour		D EH T AO R			D IH0 T UH1 R		//working as designed?
+
+more		M AO R				M AO1 R
+bored		B AO R  D			B AO1 R D			//spacing issue
+chord		CH AO R D			K AO1 R D			//working as designed?
+
+large		L AA R G			L AA1 R JH			//working as designed?
+hard		HH AA R D			HH AA1 R D
+
+ear			IY R				IY1 R
+near		N IY R				N IY1 R
+
+pay			P EY				P EY1
+buy			B AY IH				B AY1				//looks very wrong
+take		T EY K				T EY1 K
+day			D EY				D EY1
+key			K IY				K IY1
+go			G OW				G OW1
+
+chair		CH EH R				CH EH1 R
+just		JH AH S T			JH AH1 S T
+
+for			F AO R				F AO1 R
+very		V EH R IY			V EH1 R IY0
+thanks		TH AE NX K S		TH AE1 NG K S		//NX=NG?
+Thursday	TH ER S D EY		TH ER1 Z D EY2
+that		DH AE T				DH AE1 T
+the			DH AX				DH AH0
+them		DH EH M				DH EH1 M
+say			S EY				S EY1
+zoo			Z UW				Z UW1
+show		SH OW				SH OW1
+measure		M EH ZH ER			M EH1 ZH ER0
+pleasure	P L EH ZH ER		P L EH1 ZH ER
+house		HH AW Z				HH AW1 S			//working as designed?
+
+man			M AE N				M AE1 N
+no			N OW				N OW1
+button		B AH T T AH N		B AH1 T EN			//multiple issues
+sing		S IH NX				S IH1 NG
+washington	W AA SH IN NX T AH N	W AO1 SH ENG T EN	//is this even a problem?
+
+late		L EY T				L EY1 T
+fail		F EY L				F EY1 L
+bottle		B AA T T AX L		B AO1 DX EL			//whoa buddy
+run			R AH N				R AH1 N
+wetter		W EH T T ER			W EH1 DX AXR		//uh what
+wintergreen
