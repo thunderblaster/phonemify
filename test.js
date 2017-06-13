@@ -1,5 +1,5 @@
 var phonemify = require('./index.js');
 
-//console.log(phonemify.textToPhonemes("partyin' like it's 1999 fbheyfew \noh yeah"));
+console.log(phonemify.textToPhonemes("90210"));
 
-console.log(phonemify.translateViaNRL("BUTTER"));
+//console.log(phonemify.translateViaNRL("BUTTER"));

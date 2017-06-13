@@ -150,7 +150,7 @@ function translateNRLRule (word, rule) {
 }
 
 
-exports.translateViaNRL = function translateViaNRL (wordToTranslate) {
+function translateViaNRL (wordToTranslate) {
 	var word = {
 		pointer:0,
 		translated:"",
@@ -865,16 +865,28 @@ function zRuleEng (word) {
 //===== Number to words conversion ================================
 //=================================================================
 
-/*
-	Retrieved From: http://stackoverflow.com/a/5530230/3171303
-	Author: MAK - https://stackoverflow.com/users/125382/mak
-	License: CC By-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/
-*/
+var digits = ['oh', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+var ones = ['','one','two','three','four','five','six','seven','eight','nine'];
+var tens = ['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+var teens = ['ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
 
-var ones=['','one','two','three','four','five','six','seven','eight','nine'];
-var tens=['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
-var teens=['ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+function convert_digit_by_digit(num) {
+	num = String(num).split("");
+	var numWords = "";
+	for(m=0; m<num.length; m++) {
+		numWords += digits[num[m]] + " ";
+	}
+	numWords = numWords.substring(0, numWords.length - 1); //kill final space
+	return numWords;
+}
 
+function convert_sets_of_two(num) {
+	var firstNumHalf = String(num).substring(0, 2);
+	var secondNumHalf = String(num).substring(2, 4);
+	var numWords = convert_tens(firstNumHalf);
+	numWords += " " + convert_tens(secondNumHalf);
+	return numWords;
+}
 
 function convert_millions(num){
     if (num>=1000000){
@@ -912,8 +924,15 @@ function convert_tens(num){
 }
 
 function convertNumberToWords(num){
-    if (num==0) return "zero";
-    else return convert_millions(num);
+    if (num==0) {
+		return "zero";
+	} else if ((num<1000&&num>99)||(num>10000&&num<1000000)) { //read area and zip codes digit by digit
+		return convert_digit_by_digit(num);
+	} else if ((num > 1000 && num < 2000)||(num>2009&&num<3000)) { //read years as two sets of two digits
+		return convert_sets_of_two(num);
+	} else {
+		return convert_millions(num);
+	}
 }
 
 
