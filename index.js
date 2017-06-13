@@ -42,14 +42,14 @@ exports.textToPhonemes = function convert(rawInputToPhonemize) {
 					if(theseWords.length > 0) {
 						for(k=0; k < theseWords.length; k++) {
 							if(k < theseWords.length - 1) {
-								wordSeperator = "  ";
+								internalWordSeperator = "  ";
 							} else {
-								wordSeperator = "\n";
+								internalWordSeperator = wordSeperator;
 							}
 							thisWord = theseWords[k];
 							var thisPhoneme = findPhonemes(thisWord);
 							if(thisPhoneme) {
-								phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeperator;
+								phonemesToOutput = phonemesToOutput + thisPhoneme + internalWordSeperator;
 							}
 						}
 					}
@@ -137,7 +137,10 @@ function translateNRLRule (word, rule) {
 	var test = word.original.substring(0, word.pointer) + word.original.charAt(word.pointer).toLowerCase() + word.original.substring(word.pointer + 1);
 	var matches = test.substring(word.pointer - rule.extra).match(rule.regex); 
 	if(matches) {
-		word.translated = word.translated + rule.phonemes + " ";
+		var currentPhonemes = word.translated.trim().split(" ");
+		if(rule.phonemes !== "" && rule.phonemes !== currentPhonemes[currentPhonemes.length-1]) { //prevent spacing issues and duplications
+			word.translated = word.translated + rule.phonemes + " ";
+		}
 		word.pointer = word.pointer + rule.letters.length;
 		word.leftToTranslate = word.leftToTranslate.substring(rule.letters.length);
 		return word;
@@ -754,7 +757,7 @@ function uRuleEng (word) {
 		{letters: "UR", regex: /uR/, phonemes: "ER", extra: 0}, //[UR]=/ER/
 		{letters: "U", regex: /u[BCDFGHJKLMNPQRSTVWXZ]$/, phonemes: "AH", extra: 0}, //[U]^ =/AH/
 		{letters: "U", regex: /u[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]/, phonemes: "AH", extra: 0}, //[U]^^=/AH/
-		{letters: "U", regex: /uY/, phonemes: "AY", extra: 0}, //[UY]=/AY/
+		{letters: "UY", regex: /uY/, phonemes: "AY", extra: 0}, //[UY]=/AY/
 		{letters: "U", regex: /^Gu[AEIOUY]+/, phonemes: "", extra: 2}, // G[U]#=/ /
 		{letters: "U", regex: /Gu(?:ER)|Gu(?:ES)|Gu(?:ED)|Gu(?:ING)|GuE/, phonemes: "", extra: 2}, //G[U]%=/ /
 		{letters: "U", regex: /Gu[AEIOUY]+/, phonemes: "W", extra: 1}, //G[U]#=/W/

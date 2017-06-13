@@ -73,7 +73,7 @@ ear			IY R				IY1 R
 near		N IY R				N IY1 R
 
 pay			P EY				P EY1
-buy			B AY IH				B AY1				//looks very wrong
+buy			B AY				B AY1				
 take		T EY K				T EY1 K
 day			D EY				D EY1
 key			K IY				K IY1
