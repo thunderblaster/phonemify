@@ -689,7 +689,7 @@ function sRuleEng (word) {
 		{letters: "SION", regex: /[BCDFGHJKLMNPQRSTVWXZ]sION/, phonemes: "SH AX N", extra: 2}, //^[SION]=/SH AX N/
 		{letters: "S", regex: /sS/, phonemes: "", extra: 0}, //[S]S=/ /
 		{letters: "S", regex: /[BDVGJLMNRWZ]s$/, phonemes: "Z", extra: 2}, //.[S] =/Z/
-		{letters: "S", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*[BDVGJLMNRWZ]es$/, phonemes: "Z", extra: NaN}, //#:.E[S] =/Z/
+		{letters: "S", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*[BDVGJLMNRWZ]Es$/, phonemes: "Z", extra: NaN}, //#:.E[S] =/Z/
 		{letters: "S", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*[AEIOUY]+[AEIOUY]+s$/, phonemes: "Z", extra: NaN}, //#^:##[S] =/Z/
 		{letters: "S", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*[AEIOUY]+s$/, phonemes: "S", extra: NaN}, //#^:#[S] =/S/
 		{letters: "S", regex: /Us$/, phonemes: "S", extra: 1}, //U[S] =/S/
