@@ -590,7 +590,7 @@ function oRuleEng (word) {
 		{letters: "OUS", regex: /oUS/, phonemes: "AX S", extra: 0}, //[OUS]=/AX S/
 		{letters: "OUR", regex: /oUR/, phonemes: "AO R", extra: 0}, //[OUR]=/AO R/
 		{letters: "OULD", regex: /oULD/, phonemes: "UH D", extra: 0}, //[OULD]=/UH D/
-		{letters: "OU", regex: /[BCDFGHJKLMNPQRSTVWXZ]OU[BCDFGHJKLMNPQRSTVWXZ]/, phonemes: "AH", extra: 2}, //^[OU]^L=/AH/
+		{letters: "OU", regex: /[BCDFGHJKLMNPQRSTVWXZ]oU[BCDFGHJKLMNPQRSTVWXZ]/, phonemes: "AH", extra: 2}, //^[OU]^L=/AH/
 		{letters: "OUP", regex: /oUP/, phonemes: "UW P", extra: 0}, //[OUP]=/UW P/
 		{letters: "OU", regex: /oU/, phonemes: "AW", extra: 0}, //[OU]=/AW/
 		{letters: "OY", regex: /oY/, phonemes: "OY", extra: 0}, //[OY]=/OY/
