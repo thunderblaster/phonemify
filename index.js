@@ -862,6 +862,43 @@ function zRuleEng (word) {
 }
 
 //=================================================================
+//===== Syllabification ===========================================
+//=================================================================
+
+/*
+	Based on: On the Syllabification of Phonemes
+	Published in: Human Language Technologies: The 2009 Annual Conference of the North American Chapter of the ACL 
+	Authors: Susan Bartlett, Grzegorz Kondrak, and Colin Cherry
+	Dated: 2009
+*/
+
+// PSUEDO CODE
+//	until current phoneme is a vowel
+// 		label current phoneme as an onset
+//	end loop
+//	until all phonemes have been labeled
+//		label current phoneme as a nucleus
+//		if there are no more vowels in the word
+//			label all remaining consonants as codas
+//		else
+//			onset := all consonants before next vowel
+//			coda := empty
+//			until onset is legal
+//				code := coda plus first phoneme of onset
+//				onset := onset less first phoneme
+//			end loop
+//		end if
+//	end loop
+//	insert syllable boundaries before onsets
+
+//	Sonority of Arpabet phonemes by Ryland Gulbrandsen http://rylandgulbrandsen.com
+const vowels = ["AO", "AA", "IY", "UW", "EH", "IH", "UH", "AH", "AX", "AE", "EY", "AY", "OW", "AW", "OY", "ER"];
+const glides = ["Y", "W"];
+const liquids = ["L", "EL", "R", "DX", "NX"];
+const nasals = ["M", "EM", "N", "EN", "NG", "ENG"];
+const obstruents = ["P", "B", "T", "D", "K", "G", "CH", "JH", "F", "V", "TH", "DH", "S", "Z", "SH", "ZH", "HH", "Q"];
+
+//=================================================================
 //===== Number to words conversion ================================
 //=================================================================
 
