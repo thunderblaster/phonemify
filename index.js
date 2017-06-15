@@ -884,7 +884,7 @@ function zRuleEng (word) {
 //			onset := all consonants before next vowel
 //			coda := empty
 //			until onset is legal
-//				code := coda plus first phoneme of onset
+//				coda := coda plus first phoneme of onset
 //				onset := onset less first phoneme
 //			end loop
 //		end if
@@ -897,6 +897,35 @@ const glides = ["Y", "W"];
 const liquids = ["L", "EL", "R", "DX", "NX"];
 const nasals = ["M", "EM", "N", "EN", "NG", "ENG"];
 const obstruents = ["P", "B", "T", "D", "K", "G", "CH", "JH", "F", "V", "TH", "DH", "S", "Z", "SH", "ZH", "HH", "Q"];
+
+function syllibifyPhonemes (word) {
+	var phonemes = word.translated.split(" ");
+	var firstVowel = 0;
+	var numberOfVowels = 0;
+	for(n=0; n<phonemes.length; n++) {
+		phonemes[n] = {
+			"text": phonemes[n],
+			"part": null
+		};
+		if (vowels.indexOf(phonemes[n].text) > 0) {
+			numberOfVowels += 1;
+			if(firstVowel==0) {
+				firstVowel = n;
+			}
+		}
+	}
+	phonemes[firstVowel].part = "nucleus";
+	for(n=0; n<firstVowel; n++) {
+		phonemes[n].part = "onset";
+	}
+	if(numberOfVowels==1) {
+		for(n=firstVowel+1; n<phonemes.length; n++) {
+			phonemes[n].part = "coda";
+		}
+		return word; //only 1 syllable, can exit early
+	}
+	
+}
 
 //=================================================================
 //===== Number to words conversion ================================
