@@ -247,23 +247,23 @@ function translateViaNRL (wordToTranslate) {
 
 function aRuleEng (word) {
 	const aRules = [
-		{letters: "A", regex: /a$/, phonemes: "AX", extra: 0}, //[A] =/AX/
+		{letters: "A", regex: /a$/, phonemes: "AH", extra: 0}, //[A] =/AX/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "ARE", regex: /^aRE$/, phonemes: "AA R", extra: 1}, // [ARE] =/AA R/
-		{letters: "AR", regex: /^aRO/, phonemes: "AX R", extra: 1}, // [AR]O=/AX R/
+		{letters: "AR", regex: /^aRO/, phonemes: "AH R", extra: 1 }, // [AR]O=/AX R/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "AR", regex: /aR[AEIOUY]+/, phonemes: "EH R", extra: 0}, //[AR]#=/EH R/
 		{letters: "AS", regex: /^[BCDFGHJKLMNPQRSTVWXZ]aS[AEIOUY]+/, phonemes: "EY S", extra: 2}, // ^[AS]#=/EY S/
-		{letters: "A", regex: /aWA/, phonemes: "AX", extra: 0}, //[A]WA=/AX/
+		{letters: "A", regex: /aWA/, phonemes: "AH", extra: 0 }, //[A]WA=/AX/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "AW", regex: /aW/, phonemes: "AO", extra: 0}, //[AW]=/AO/
 		{letters: "ANY", regex: /^[BCDFGHJKLMNPQRSTVWXZ]*aNY/, phonemes: "EH N IY", extra: 1}, // :[ANY]=/EH N IY/
 		{letters: "A", regex: /a[BCDFGHJKLMNPQRSTVWXZ][EIY][AEIOUY]+/, phonemes: "EY", extra: 0}, //[A]^+#=/EY/
-		{letters: "ALLY", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*aLLY/, phonemes: "AX L IY", extra: NaN}, //#:[ALLY]=/AX L IY/
-		{letters: "AL", regex: /^aL[AEIOUY]+/, phonemes: "AX L", extra: 1}, // [AL]#=/AX L/
-		{letters: "AGAIN", regex: /aGAIN/, phonemes: "AX G EH N", extra: 0}, //[AGAIN]=/AX G EH N/
+		{letters: "ALLY", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*aLLY/, phonemes: "AH L IY", extra: NaN}, //#:[ALLY]=/AX L IY/       NOTE: "AX" IS NOT USED BY CMUDICT
+		{letters: "AL", regex: /^aL[AEIOUY]+/, phonemes: "AH L", extra: 1 }, // [AL]#=/AX L/       NOTE: "AX" IS NOT USED BY CMUDICT
+		{letters: "AGAIN", regex: /aGAIN/, phonemes: "AH G EH N", extra: 0 }, //[AGAIN]=/AX G EH N/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "AG", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*aGE/, phonemes: "IH JH", extra: NaN}, //#:[AG]E=/IH JH/
 		{letters: "A", regex: /a[BCDFGHJKLMNPQRSTVWXZ][EIY][BCDFGHJKLMNPQRSTVWXZ]*[AEIOUY]+/, phonemes: "AE", extra: 0}, //[A]^+:#=/AE/
 		{letters: "A", regex: /^[BCDFGHJKLMNPQRSTVWXZ]*a[BCDFGHJKLMNPQRSTVWXZ][EIY]$/, phonemes: "EY", extra: 1}, // :[A]^+ =/EY/
 		{letters: "A", regex: /a[BCDFGHJKLMNPQRSTVWXZ](?:ER)|a[BCDFGHJKLMNPQRSTVWXZ](?:ES)|a[BCDFGHJKLMNPQRSTVWXZ](?:ED)|a[BCDFGHJKLMNPQRSTVWXZ](?:ING)|a[BCDFGHJKLMNPQRSTVWXZ]E/, phonemes: "EY", extra: 0}, //[A]^%=/EY/
-		{letters: "ARR", regex: /^aRR/, phonemes: "AX R", extra: 1}, // [ARR]=/AX R/
+		{letters: "ARR", regex: /^aRR/, phonemes: "AH R", extra: 1 }, // [ARR]=/AX R/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "ARR", regex: /aRR/, phonemes: "AE R", extra: 0}, //[ARR]=/AE R/
 		{letters: "AR", regex: /^[BCDFGHJKLMNPQRSTVWXZ]*aR$/, phonemes: "AA R", extra: 1}, // :[AR] =/AA R/
 		{letters: "AR", regex: /aR$/, phonemes: "ER", extra: 0}, //[AR] =/ER/
@@ -272,11 +272,11 @@ function aRuleEng (word) {
 		{letters: "AI", regex: /aI/, phonemes: "EY", extra: 0}, //[AI]=/EY/
 		{letters: "AY", regex: /aY/, phonemes: "EY", extra: 0}, //[AY]=/EY/
 		{letters: "AU", regex: /aU/, phonemes: "AO", extra: 0}, //[AU]=/AO/
-		{letters: "AL", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*aL$/, phonemes: "AX L", extra: NaN}, //#:[AL] =/AX L/
-		{letters: "ALS", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*aLS$/, phonemes: "AX L Z", extra: NaN}, //#:[ALS] =/AX L Z/
+		{letters: "AL", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*aL$/, phonemes: "AH L", extra: NaN }, //#:[AL] =/AX L/       NOTE: "AX" IS NOT USED BY CMUDICT
+		{letters: "ALS", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*aLS$/, phonemes: "AH L Z", extra: NaN }, //#:[ALS] =/AX L Z/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "ALK", regex: /aLK/, phonemes: "AO K", extra: 0}, //[ALK]=/AO K/
 		{letters: "AL", regex: /aL[BCDFGHJKLMNPQRSTVWXZ]/, phonemes: "AO L", extra: 0}, //[AL]^=/AO L/
-		{letters: "ABLE", regex: /^[BCDFGHJKLMNPQRSTVWXZ]*aBLE/, phonemes: "EY B AX L", extra: 1}, // :[ABLE]=/EY B AX L/
+		{letters: "ABLE", regex: /^[BCDFGHJKLMNPQRSTVWXZ]*aBLE/, phonemes: "EY B AH L", extra: 1 }, // :[ABLE]=/EY B AX L/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "ANG", regex: /aNG[EIY]/, phonemes: "EY N JH", extra: 0}, //[ANG]+=/EY N JH/
 		{letters: "A", regex: /a/, phonemes: "AE", extra: 0} //[A]=/AE/
 	];
@@ -379,7 +379,7 @@ function eRuleEng (word) {
 		{letters: "EARN", regex: /eARN/, phonemes: "ER N", extra: 0}, //[EARN]=/ER N/
 		{letters: "EAR", regex: /^eAR[BCDFGHJKLMNPQRSTVWXZ]/, phonemes: "ER", extra: 1}, // [EAR]^=/ER/
 		{letters: "EAD", regex: /eAD/, phonemes: "EH D", extra: 0}, //[EAD]=/EH D/
-		{letters: "EA", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*eA$/, phonemes: "IY AX", extra: NaN}, //#:[EA] =/IY AX/
+		{letters: "EA", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*eA$/, phonemes: "IY AH", extra: NaN }, //#:[EA] =/IY AX/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "EA", regex: /eASU/, phonemes: "EH", extra: 0}, //[EA]SU=/EH/
 		{letters: "EA", regex: /eA/, phonemes: "IY", extra: 0}, //[EA]=/IY/
 		{letters: "EIGH", regex: /eIGH/, phonemes: "EY", extra: 0}, //[EIGH]=/EY/
@@ -521,7 +521,7 @@ function lRuleEng (word) {
 	const lRules = [
 		{letters: "LO", regex: /lOC[AEIOUY]+/, phonemes: "L OW", extra: 0}, //[LO]C#=/L OW/
 		{letters: "L", regex: /^Ll/, phonemes: "", extra: 1}, //L[L]=/ /
-		{letters: "L", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*l(?:ER)|[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*l(?:ES)|[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*l(?:ED)|[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*l(?:ING)|[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*lE/, phonemes: "AX L", extra: NaN}, //#^:[L]%=/AX L/
+		{letters: "L", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*l(?:ER)|[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*l(?:ES)|[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*l(?:ED)|[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*l(?:ING)|[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*lE/, phonemes: "AH L", extra: NaN }, //#^:[L]%=/AX L/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "LEAD", regex: /lEAD/, phonemes: "L IY D", extra: 0}, //[LEAD]=/L IY D/
 		{letters: "L", regex: /l/, phonemes: "L", extra: 0} //[L]=/L/
 	];
@@ -553,7 +553,7 @@ function nRuleEng (word) {
 		{letters: "NG", regex: /EnG[EIY]/, phonemes: "N JH", extra: 1}, //E[NG]+=/N JH/
 		{letters: "NG", regex: /nGR/, phonemes: "NX G", extra: 0}, //[NG]R=/NX G/
 		{letters: "NG", regex: /nG[AEIOUY]+/, phonemes: "NX G", extra: 0}, //[NG]#=/NX G/
-		{letters: "NGL", regex: /nGL(?:ER)|nGL(?:ES)|nGL(?:ED)|nGL(?:ING)|nGLE/, phonemes: "NX G AX L", extra: 0}, //[NGL]%=/NX G AX L/
+		{letters: "NGL", regex: /nGL(?:ER)|nGL(?:ES)|nGL(?:ED)|nGL(?:ING)|nGLE/, phonemes: "NX G AH L", extra: 0 }, //[NGL]%=/NX G AX L/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "NG", regex: /nG/, phonemes: "NX", extra: 0}, //[NG]=/NX/
 		{letters: "NK", regex: /nK/, phonemes: "NX K", extra: 0}, //[NK]=/NX K/
 		{letters: "NOW", regex: /^nOW$/, phonemes: "N AW", extra: 1}, // [NOW] =/N AW/
@@ -570,7 +570,7 @@ function nRuleEng (word) {
 
 function oRuleEng (word) {
 	const oRules = [
-		{letters: "OF", regex: /oF$/, phonemes: "AX V", extra: 0}, //[OF] =/AX V/
+		{letters: "OF", regex: /oF$/, phonemes: "AH V", extra: 0 }, //[OF] =/AX V/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "OROUGH", regex: /oROUGH/, phonemes: "ER OW", extra: 0}, //[OROUGH] =/ER OW/
 		{letters: "OR", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*oR$/, phonemes: "ER", extra: NaN}, //#:[OR] =/ER/
 		{letters: "ORS", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*oRS$/, phonemes: "ER Z", extra: NaN}, //#:[ORS] =/ER Z/
@@ -587,7 +587,7 @@ function oRuleEng (word) {
 		{letters: "OUGH", regex: /oUGH/, phonemes: "AH F", extra: 0}, //[OUGH]=/AH F/
 		{letters: "OU", regex: /^oU/, phonemes: "AW", extra: 1}, // [OU]=/AW/
 		{letters: "OU", regex: /HoUS[AEIOUY]+/, phonemes: "AW", extra: 1}, //H[OU]S#=/AW/
-		{letters: "OUS", regex: /oUS/, phonemes: "AX S", extra: 0}, //[OUS]=/AX S/
+		{letters: "OUS", regex: /oUS/, phonemes: "AH S", extra: 0 }, //[OUS]=/AX S/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "OUR", regex: /oUR/, phonemes: "AO R", extra: 0}, //[OUR]=/AO R/
 		{letters: "OULD", regex: /oULD/, phonemes: "UH D", extra: 0}, //[OULD]=/UH D/
 		{letters: "OU", regex: /[BCDFGHJKLMNPQRSTVWXZ]oU[BCDFGHJKLMNPQRSTVWXZ]/, phonemes: "AH", extra: 2}, //^[OU]^L=/AH/
@@ -609,9 +609,9 @@ function oRuleEng (word) {
 		{letters: "O", regex: /CoN/, phonemes: "AA", extra: 1}, //C[O]N=/AA/
 		{letters: "O", regex: /oNG/, phonemes: "AO", extra: 0}, //[O]NG=/AO/
 		{letters: "O", regex: /[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*oN/, phonemes: "AH", extra: NaN}, //^:[O]N=/AH/
-		{letters: "ON", regex: /IoN/, phonemes: "AX N", extra: 1}, //I[ON]=/AX N/
-		{letters: "ON", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*oN$/, phonemes: "AX N", extra: NaN}, //#:[ON] =/AX N/
-		{letters: "ON", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]oN/, phonemes: "AX N", extra: NaN}, //#^[ON]=/AX N/
+		{letters: "ON", regex: /IoN/, phonemes: "AH N", extra: 1 }, //I[ON]=/AX N/       NOTE: "AX" IS NOT USED BY CMUDICT
+		{letters: "ON", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*oN$/, phonemes: "AH N", extra: NaN }, //#:[ON] =/AX N/       NOTE: "AX" IS NOT USED BY CMUDICT
+		{letters: "ON", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]oN/, phonemes: "AH N", extra: NaN }, //#^[ON]=/AX N/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "O", regex: /oST$/, phonemes: "OW", extra: 0}, //[O]ST =/OW/
 		{letters: "OF", regex: /oF[BCDFGHJKLMNPQRSTVWXZ]/, phonemes: "AO F", extra: 0}, //[OF]^=/AO F/
 		{letters: "OTHER", regex: /oTHER/, phonemes: "AH DH ER", extra: 0}, //[OTHER]=/AH DH ER/
@@ -677,7 +677,7 @@ function rRuleEng (word) {
 function sRuleEng (word) {
 	const sRules = [
 		{letters: "SH", regex: /sH/, phonemes: "SH", extra: 0}, //[SH]=/SH/
-		{letters: "SION", regex: /[AEIOUY]+sION/, phonemes: "ZH AX N", extra: 1}, //#[SION]=/ZH AX N/
+		{letters: "SION", regex: /[AEIOUY]+sION/, phonemes: "ZH AH N", extra: 1 }, //#[SION]=/ZH AX N/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "SOME", regex: /sOME/, phonemes: "S AH M", extra: 0}, //[SOME]=/S AH M/
 		{letters: "SUR", regex: /[AEIOUY]+sUR[AEIOUY]+/, phonemes: "ZH ER", extra: 1}, //#[SUR]#=/ZH ER/
 		{letters: "SUR", regex: /sUR[AEIOUY]+/, phonemes: "SH ER", extra: 0}, //[SUR]#=/SH ER/
@@ -686,7 +686,7 @@ function sRuleEng (word) {
 		{letters: "SED", regex: /[AEIOUY]+sED$/, phonemes: "Z D", extra: 1}, //#[SED] =/Z D/
 		{letters: "S", regex: /[AEIOUY]+s[AEIOUY]+/, phonemes: "Z", extra: 1}, //#[S]#=/Z/
 		{letters: "SAID", regex: /sAID/, phonemes: "S EH D", extra: 0}, //[SAID]=/S EH D/
-		{letters: "SION", regex: /[BCDFGHJKLMNPQRSTVWXZ]sION/, phonemes: "SH AX N", extra: 2}, //^[SION]=/SH AX N/
+		{letters: "SION", regex: /[BCDFGHJKLMNPQRSTVWXZ]sION/, phonemes: "SH AH N", extra: 2 }, //^[SION]=/SH AX N/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "S", regex: /sS/, phonemes: "", extra: 0}, //[S]S=/ /
 		{letters: "S", regex: /[BDVGJLMNRWZ]s$/, phonemes: "Z", extra: 2}, //.[S] =/Z/
 		{letters: "S", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*[BDVGJLMNRWZ]Es$/, phonemes: "Z", extra: NaN}, //#:.E[S] =/Z/
@@ -697,7 +697,7 @@ function sRuleEng (word) {
 		{letters: "SCH", regex: /^sCH/, phonemes: "S K", extra: 0}, // [SCH]=/S K/
 		{letters: "S", regex: /sC[EIY]/, phonemes: "", extra: 0}, //[S]C+=/ /
 		{letters: "S", regex: /[AEIOUY]+sM/, phonemes: "Z M", extra: 1}, //#[SM]=/Z M/
-		{letters: "SN'", regex: /sN'/, phonemes: "Z AX N", extra: 1}, //#[SN]'=/Z AX N/
+		{letters: "SN'", regex: /sN'/, phonemes: "Z AA N", extra: 1 }, //#[SN]'=/Z AX N/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "S", regex: /s/, phonemes: "S", extra: 0} //[S]=/S/
 	];
 	for(l=0; l<sRules.length; l++) {
@@ -711,7 +711,7 @@ function sRuleEng (word) {
 
 function tRuleEng (word) {
 	const tRules = [
-		{letters: "THE", regex: /^tHE$/, phonemes: "DH AX", extra: 1}, // [THE] =/DH AX/
+		{letters: "THE", regex: /^tHE$/, phonemes: "DH AH", extra: 1 }, // [THE] =/DH AX/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "TO", regex: /tO$/, phonemes: "T UW", extra: 0}, //[TO] =/T UW/
 		{letters: "THAT", regex: /tHAT$/, phonemes: "DH AE T", extra: 0}, //[THAT] =/DH AE T/
 		{letters: "THIS", regex: /^tHIS$/, phonemes: "DH IH S", extra: 1}, // [THIS] =/DH IH S/
@@ -732,7 +732,7 @@ function tRuleEng (word) {
 		{letters: "TI", regex: /StI[AEIOUY]+N/, phonemes: "CH", extra: 0}, //S[TI]#N=/CH/
 		{letters: "TI", regex: /tIO/, phonemes: "SH", extra: 0}, //[TI]O=/SH/
 		{letters: "TI", regex: /tIA/, phonemes: "SH", extra: 0}, //[TI]A=/SH/
-		{letters: "TIEN", regex: /tIEN/, phonemes: "SH AX N", extra: 0}, //[TIEN]=/SH AX N/
+		{letters: "TIEN", regex: /tIEN/, phonemes: "SH AH N", extra: 0 }, //[TIEN]=/SH AX N/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "TUR", regex: /tUR[AEIOUY]+/, phonemes: "CH ER", extra: 0}, //[TUR]#=/CH ER/
 		{letters: "TU", regex: /tUA/, phonemes: "CH UW", extra: 0}, //[TU]A=/CH UW/
 		{letters: "TWO", regex: /^tWO/, phonemes: "T UW", extra: 1}, // [TWO]=/T UW/
@@ -751,7 +751,7 @@ function uRuleEng (word) {
 	const uRules = [
 		{letters: "UN", regex: /^uNI/, phonemes: "Y UW N", extra: 1}, // [UN]I=/Y UW N/
 		{letters: "UN", regex: /^uN/, phonemes: "AH N", extra: 1}, // [UN]=/AH N/
-		{letters: "UPON", regex: /^uPON/, phonemes: "AX P AO N", extra: 1}, // [UPON]=/AX P AO N/
+		{letters: "UPON", regex: /^uPON/, phonemes: "AH P AO N", extra: 1 }, // [UPON]=/AX P AO N/       NOTE: "AX" IS NOT USED BY CMUDICT
 		{letters: "UR", regex: /(?:CH)uR[AEIOUY]+|(?:SH)uR[AEIOUY]+|(?:TH)uR[AEIOUY]+|[TSRDLZNJ]uR[AEIOUY]+/, phonemes: "UH R", extra: 1}, //@[UR]#=/UH R/
 		{letters: "UR", regex: /uR[AEIOUY]+/, phonemes: "Y UH R", extra: 0}, //[UR]#=/Y UH R/
 		{letters: "UR", regex: /uR/, phonemes: "ER", extra: 0}, //[UR]=/ER/
@@ -793,14 +793,14 @@ function wRuleEng (word) {
 		{letters: "WERE", regex: /^wERE/, phonemes: "W ER", extra: 1}, // [WERE]=/W ER/
 		{letters: "WA", regex: /wAS/, phonemes: "W AA", extra: 0}, //[WA]S=/W AA/
 		{letters: "WA", regex: /wAT/, phonemes: "W AA", extra: 0}, //[WA]T=/W AA/
-		{letters: "WHERE", regex: /wHERE/, phonemes: "WH EH R", extra: 0}, //[WHERE]=/WH EH R/
-		{letters: "WHAT", regex: /wHAT/, phonemes: "WH AA T", extra: 0}, //[WHAT]=/WH AA T/
+		{letters: "WHERE", regex: /wHERE/, phonemes: "W EH R", extra: 0}, //[WHERE]=/WH EH R/   NOTE: "WH" IS NOT A PHONEME IN ARPABET
+		{letters: "WHAT", regex: /wHAT/, phonemes: "W AH T", extra: 0 }, //[WHAT]=/WH AA T/   NOTE: "WH" IS NOT A PHONEME IN ARPABET
 		{letters: "WHOL", regex: /wHOL/, phonemes: "HH OW L", extra: 0}, //[WHOL]=/HH OW L/
 		{letters: "WHO", regex: /wHO/, phonemes: "HH UW", extra: 0}, //[WHO]=/HH UW/
 		{letters: "WH", regex: /wH/, phonemes: "WH", extra: 0}, //[WH]=/WH/
 		{letters: "WAR", regex: /wAR/, phonemes: "W AO R", extra: 0}, //[WAR]=/W AO R/
 		{letters: "WOR", regex: /wOR[BCDFGHJKLMNPQRSTVWXZ]/, phonemes: "W ER", extra: 0}, //[WOR]^=/W ER/
-		{letters: "WR", regex: /wR/, phonemes: "WR", extra: 0}, //[WR]=/R/
+		{letters: "WR", regex: /wR/, phonemes: "R", extra: 0}, //[WR]=/R/
 		{letters: "W", regex: /w/, phonemes: "W", extra: 0} //[W]=/W/
 	];
 	for(l=0; l<wRules.length; l++) {
@@ -892,11 +892,11 @@ function zRuleEng (word) {
 //	insert syllable boundaries before onsets
 
 //	Sonority of Arpabet phonemes by Ryland Gulbrandsen http://rylandgulbrandsen.com
-const vowels = ["AO", "AA", "IY", "UW", "EH", "IH", "UH", "AH", "AX", "AE", "EY", "AY", "OW", "AW", "OY", "ER"];
-const glides = ["Y", "W"];
-const liquids = ["L", "EL", "R", "DX", "NX"];
-const nasals = ["M", "EM", "N", "EN", "NG", "ENG"];
-const obstruents = ["P", "B", "T", "D", "K", "G", "CH", "JH", "F", "V", "TH", "DH", "S", "Z", "SH", "ZH", "HH", "Q"];
+const vowels = ["AO", "AA", "IY", "UW", "EH", "IH", "UH", "AH", "AE", "EY", "AY", "OW", "AW", "OY", "ER"]; // 4
+const glides = ["Y", "W"]; // 3
+const liquids = ["L", "EL", "R", "DX", "NX"]; // 2
+const nasals = ["M", "EM", "N", "EN", "NG", "ENG"]; // 1
+const obstruents = ["P", "B", "T", "D", "K", "G", "CH", "JH", "F", "V", "TH", "DH", "S", "Z", "SH", "ZH", "HH"]; // 0
 
 function syllibifyPhonemes (word) {
 	var phonemes = word.translated.split(" ");
@@ -905,26 +905,39 @@ function syllibifyPhonemes (word) {
 	for(n=0; n<phonemes.length; n++) {
 		phonemes[n] = {
 			"text": phonemes[n],
-			"part": null
+			"part": null,
+			"sonority": null
 		};
 		if (vowels.indexOf(phonemes[n].text) > 0) {
+			phonemes[n].sonority = 4;
 			numberOfVowels += 1;
 			if(firstVowel==0) {
 				firstVowel = n;
 			}
 		}
+		if (glides.indexOf(phonemes[n].text) > 0) {
+			phonemes[n].sonority = 3;
+		}
+		if (liquids.indexOf(phonemes[n].text) > 0) {
+			phonemes[n].sonority = 2;
+		}
+		if (nasals.indexOf(phonemes[n].text) > 0) {
+			phonemes[n].sonority = 1;
+		}
+		if (obstruents.indexOf(phonemes[n].text) > 0) {
+			phonemes[n].sonority = 0;
+		}
+	}
+	if (numberOfVowels == 1) {
+		return word; //only 1 syllable, can exit early
 	}
 	phonemes[firstVowel].part = "nucleus";
 	for(n=0; n<firstVowel; n++) {
 		phonemes[n].part = "onset";
 	}
-	if(numberOfVowels==1) {
-		for(n=firstVowel+1; n<phonemes.length; n++) {
-			phonemes[n].part = "coda";
-		}
-		return word; //only 1 syllable, can exit early
+	for(n=firstVowel+1; n<phonemes.length; n++) {
+		//loop through stuff after the first vowel and mark it appropriately
 	}
-	
 }
 
 //=================================================================
