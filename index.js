@@ -898,10 +898,9 @@ const liquids = ["L", "EL", "R", "DX", "NX"]; // 2
 const nasals = ["M", "EM", "N", "EN", "NG", "ENG"]; // 1
 const obstruents = ["P", "B", "T", "D", "K", "G", "CH", "JH", "F", "V", "TH", "DH", "S", "Z", "SH", "ZH", "HH"]; // 0
 
-function syllibifyPhonemes (word) {
+exports.syllibify = function syllibifyPhonemes (word) {
 	var phonemes = word.translated.split(" ");
-	var firstVowel = 0;
-	var numberOfVowels = 0;
+	var wordVowels = [];
 	for(n=0; n<phonemes.length; n++) {
 		phonemes[n] = {
 			"text": phonemes[n],
@@ -910,10 +909,8 @@ function syllibifyPhonemes (word) {
 		};
 		if (vowels.indexOf(phonemes[n].text) > 0) {
 			phonemes[n].sonority = 4;
-			numberOfVowels += 1;
-			if(firstVowel==0) {
-				firstVowel = n;
-			}
+			phonemes[n].part = "nucleus";
+			wordVowels.push(n);
 		}
 		if (glides.indexOf(phonemes[n].text) > 0) {
 			phonemes[n].sonority = 3;
@@ -928,16 +925,49 @@ function syllibifyPhonemes (word) {
 			phonemes[n].sonority = 0;
 		}
 	}
-	if (numberOfVowels == 1) {
+	if (wordVowels.length === 1) {
 		return word; //only 1 syllable, can exit early
 	}
-	phonemes[firstVowel].part = "nucleus";
-	for(n=0; n<firstVowel; n++) {
+	phonemes[wordVowels[0]].part = "nucleus";
+	for(n=0; n<wordVowels[0]; n++) {
 		phonemes[n].part = "onset";
 	}
-	for(n=firstVowel+1; n<phonemes.length; n++) {
-		//loop through stuff after the first vowel and mark it appropriately
+	for(n=0; n<wordVowels.length; n++) {
+		if(n===wordVowels.length-1) { //if last vowel
+			for(o=wordVowels[n]+1; o<phonemes.length; o++) {
+				phonemes[o].part = "coda";
+			}
+		} else {
+			if(wordVowels[n+1]-wordVowels[n]===2) {
+				phonemes[wordVowels[n]+1].part = "onset";
+			} else {
+				for(o=wordVowels[n+1]-1; o>wordVowels[n]+1; o--) {
+					//gulbrandsen 2011 says that equal sonority should go to onset, but MS/Alberta does not mention that...
+					if(/*phonemes[o].sonority===phonemes[o-1].sonority||*/phonemes[o].sonority>phonemes[o-1]+1) {
+						console.log("legal!");
+					} else {
+						for(p=o; p<wordVowels[n+1]; p++) {
+							phonemes[p].part = "onset";
+						}
+						for(p=o-1; p>wordVowels[n]; p--) {
+							phonemes[p].part = "coda";
+						}
+					}
+				}
+			}
+		}
 	}
+	var syllabizedPhonemes = "";
+	for(n=0; n<phonemes.length; n++) {
+		syllabizedPhonemes += phonemes[n].text + " ";
+		if(n!==phonemes.length-1) {
+			if((phonemes[n].part==="coda"||phonemes[n].part==="nucleus")&&phonemes[n+1].part==="onset") {
+				syllabizedPhonemes += "- ";
+			}
+		}
+	}
+	word.translated = syllabizedPhonemes;
+	return word;
 }
 
 //=================================================================
