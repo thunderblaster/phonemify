@@ -1,5 +1,8 @@
 const phonemes = require('./cmudict.js').phonemes();
-exports.textToPhonemes = function convert(rawInputToPhonemize) {
+exports.textToPhonemes = function convert(rawInputToPhonemize, interWordSeparator) {
+	if(interWordSeparator === undefined) {
+		interWordSeparator = "  ";
+	}
 	var inputLines = rawInputToPhonemize.split("\n");
 	var inputWords = [];
 	//split input into 2D array based on newlines
@@ -28,13 +31,13 @@ exports.textToPhonemes = function convert(rawInputToPhonemize) {
 			}
 			var thisPhoneme = "";
 			if (j == inputWords[i].length - 1) { //if last word in line
-				var wordSeperator = "\n";
+				var wordSeparator = "\n";
 			} else {
-				var wordSeperator = "  ";
+				var wordSeparator = interWordSeparator;
 			}
 			var thisPhoneme = findPhonemes(thisWord);
 			if(thisPhoneme) {
-				phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeperator;
+				phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeparator;
 			} else {
 				if(isFinite(thisWord)) { //if numeric, convert to words
 					var numberWords = convertNumberToWords(thisWord).toUpperCase();
@@ -42,9 +45,9 @@ exports.textToPhonemes = function convert(rawInputToPhonemize) {
 					if(theseWords.length > 0) {
 						for(k=0; k < theseWords.length; k++) {
 							if(k < theseWords.length - 1) {
-								internalWordSeperator = "  ";
+								internalWordSeperator = interWordSeparator;
 							} else {
-								internalWordSeperator = wordSeperator;
+								internalWordSeperator = wordSeparator;
 							}
 							thisWord = theseWords[k];
 							var thisPhoneme = findPhonemes(thisWord);
@@ -56,11 +59,12 @@ exports.textToPhonemes = function convert(rawInputToPhonemize) {
 				} else {
 					var thisPhoneme = checkIfAAVEGerund(thisWord); //see if its a gerund ending in ' instead of g
 					if(thisPhoneme) {
-						phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeperator;
+						phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeparator;
 					} else {
+						thisWord = thisWord.replace("'", "");
 						var thisPhoneme = translateViaNRL(thisWord); //translate using NRL algorithm
 						if(thisPhoneme) {
-							phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeperator;
+							phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeparator;
 						} else {
 							return "error: couldn't find word '" + thisWord + "' and failed to translate it via NRL.";
 						}
@@ -238,11 +242,15 @@ function translateViaNRL (wordToTranslate) {
 				word = zRuleEng(word);
 				break;
 			default:
-				console.log("found a weird letter during NRL translation.");
+				const err = new Error('Encountered ' + word.leftToTranslate.charAt(0) + ' when trying to create phonemes for word ' + 
+				word.original + ' which was not found in cmudict.');
+				console.error(err);
 				
 		}
 	}
-	return(word.translated.trim());
+	word.translated = word.translated.trim();
+	word = syllabifyPhonemes(word);
+	return word.translated;
 }
 
 function aRuleEng (word) {
@@ -898,7 +906,7 @@ const liquids = ["L", "EL", "R", "DX", "NX"]; // 2
 const nasals = ["M", "EM", "N", "EN", "NG", "ENG"]; // 1
 const obstruents = ["P", "B", "T", "D", "K", "G", "CH", "JH", "F", "V", "TH", "DH", "S", "Z", "SH", "ZH", "HH"]; // 0
 
-exports.syllibify = function syllibifyPhonemes (word) {
+function syllabifyPhonemes (word) {
 	var phonemes = word.translated.split(" ");
 	var wordVowels = [];
 	for(n=0; n<phonemes.length; n++) {
