@@ -934,7 +934,18 @@ function syllabifyPhonemes (word) {
 		}
 	}
 	if (wordVowels.length === 1) {
-		return word; //only 1 syllable, can exit early
+		phonemes[wordVowels[0]].text = phonemes[wordVowels[0]].text.trim() + "1"; //only 1 syllable primary stress is on the only one
+		var syllabizedPhonemes = "";
+		for(n=0; n<phonemes.length; n++) {
+			syllabizedPhonemes += phonemes[n].text + " ";
+			if(n!==phonemes.length-1) {
+				if((phonemes[n].part==="coda"||phonemes[n].part==="nucleus")&&phonemes[n+1].part==="onset") {
+					syllabizedPhonemes += "- ";
+				}
+			}
+		}
+		word.translated = syllabizedPhonemes;
+		return word; 
 	}
 	phonemes[wordVowels[0]].part = "nucleus";
 	for(n=0; n<wordVowels[0]; n++) {
@@ -950,9 +961,8 @@ function syllabifyPhonemes (word) {
 				phonemes[wordVowels[n]+1].part = "onset";
 			} else {
 				for(o=wordVowels[n+1]-1; o>wordVowels[n]+1; o--) {
-					//gulbrandsen 2011 says that equal sonority should go to onset, but MS/Alberta does not mention that...
-					if(/*phonemes[o].sonority===phonemes[o-1].sonority||*/phonemes[o].sonority>phonemes[o-1]+1) {
-						console.log("legal!");
+					if(phonemes[o].sonority>phonemes[o-1]+1) {
+						//so far, so legal
 					} else {
 						for(p=o; p<wordVowels[n+1]; p++) {
 							phonemes[p].part = "onset";
