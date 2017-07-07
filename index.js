@@ -1,5 +1,5 @@
 const phonemes = require('./cmudict.js').phonemes();
-exports.textToPhonemes = function convert(rawInputToPhonemize, interWordSeparator) {
+module.exports = function convert(rawInputToPhonemize, interWordSeparator) {
 	if(interWordSeparator === undefined) {
 		interWordSeparator = "  ";
 	}
@@ -946,6 +946,50 @@ function syllabifyPhonemes (word) {
 		}
 		word.translated = syllabizedPhonemes;
 		return word; 
+	} else if (wordVowels.length === 2) {
+		phonemes[wordVowels[0]].text = phonemes[wordVowels[0]].text.trim() + "1";
+		phonemes[wordVowels[1]].text = phonemes[wordVowels[1]].text.trim() + "0";
+	} else if (wordVowels.length === 3) {
+		phonemes[wordVowels[0]].text = phonemes[wordVowels[0]].text.trim() + "0";
+		phonemes[wordVowels[1]].text = phonemes[wordVowels[1]].text.trim() + "1";
+		phonemes[wordVowels[2]].text = phonemes[wordVowels[2]].text.trim() + "0";
+	} else if (wordVowels.length === 4) {
+		phonemes[wordVowels[0]].text = phonemes[wordVowels[0]].text.trim() + "0";
+		phonemes[wordVowels[1]].text = phonemes[wordVowels[1]].text.trim() + "1";
+		phonemes[wordVowels[2]].text = phonemes[wordVowels[2]].text.trim() + "0";
+		phonemes[wordVowels[3]].text = phonemes[wordVowels[3]].text.trim() + "0";
+	} else if (wordVowels.length === 5) {
+		phonemes[wordVowels[0]].text = phonemes[wordVowels[0]].text.trim() + "2";
+		phonemes[wordVowels[1]].text = phonemes[wordVowels[1]].text.trim() + "0";
+		phonemes[wordVowels[2]].text = phonemes[wordVowels[2]].text.trim() + "1";
+		phonemes[wordVowels[3]].text = phonemes[wordVowels[3]].text.trim() + "0";
+		phonemes[wordVowels[4]].text = phonemes[wordVowels[4]].text.trim() + "0";
+	} else if (wordVowels.length === 6) {
+		phonemes[wordVowels[0]].text = phonemes[wordVowels[0]].text.trim() + "2";
+		phonemes[wordVowels[1]].text = phonemes[wordVowels[1]].text.trim() + "0";
+		phonemes[wordVowels[2]].text = phonemes[wordVowels[2]].text.trim() + "0";
+		phonemes[wordVowels[3]].text = phonemes[wordVowels[3]].text.trim() + "1";
+		phonemes[wordVowels[4]].text = phonemes[wordVowels[4]].text.trim() + "0";
+		phonemes[wordVowels[5]].text = phonemes[wordVowels[5]].text.trim() + "0";
+	} else {
+		var extra = (wordVowels.length - 6) % 3;
+		if(extra===1) {
+			phonemes[wordVowels[0]].text = phonemes[wordVowels[0]].text.trim() + "0";
+		} else if (extra===2) {
+			phonemes[wordVowels[0]].text = phonemes[wordVowels[0]].text.trim() + "2";
+			phonemes[wordVowels[1]].text = phonemes[wordVowels[1]].text.trim() + "0";
+		}
+		for(q=extra; q<wordVowels.length-6; q+=3) {
+			phonemes[wordVowels[q]].text = phonemes[wordVowels[q]].text.trim() + "2";
+			phonemes[wordVowels[q+1]].text = phonemes[wordVowels[q+1]].text.trim() + "0";
+			phonemes[wordVowels[q+2]].text = phonemes[wordVowels[q+2]].text.trim() + "0";
+		}
+		phonemes[wordVowels[wordVowels.length-6]].text = phonemes[wordVowels[wordVowels.length-6]].text.trim() + "2";
+		phonemes[wordVowels[wordVowels.length-5]].text = phonemes[wordVowels[wordVowels.length-5]].text.trim() + "0";
+		phonemes[wordVowels[wordVowels.length-4]].text = phonemes[wordVowels[wordVowels.length-4]].text.trim() + "0";
+		phonemes[wordVowels[wordVowels.length-3]].text = phonemes[wordVowels[wordVowels.length-3]].text.trim() + "1";
+		phonemes[wordVowels[wordVowels.length-2]].text = phonemes[wordVowels[wordVowels.length-2]].text.trim() + "0";
+		phonemes[wordVowels[wordVowels.length-1]].text = phonemes[wordVowels[wordVowels.length-1]].text.trim() + "0";
 	}
 	phonemes[wordVowels[0]].part = "nucleus";
 	for(n=0; n<wordVowels[0]; n++) {
