@@ -1,56 +1,89 @@
 var phonemify = require('./index.js');
 
-console.log(phonemify("[Intro: G-Eazy]\nYeah\nYoung Gerald, yeah, uh\nYeah, yeah, yeah, yeah, yeah\n\n[Verse 1: G-Eazy]\n\
-Dylon, Dylon with the boom pow\nEvery week now I switch to a new style\nTwo 12 in the back just blew out\n\
-Everything I do end up in the news now\nLeave the club with a few now\nJust some Hollywood girls and they do chow\n\
-I'm drunk, I'm drunk in the mood now\n2 AM, what you wanna do now?\n(What you wanna do now?)\n\n[Verse 2: G-Eazy]\n\
-Look baby, pass the Stella\nDon't spill on me, that's Margiela\nGot this Oakland game to tell her\nGoddamn, she look familiar\n\
-Think we hooked up at Coachella\nWhat's her name? Isabella? Isa- uhhh... forget it\n\n[Pre-Chorus: G-Eazy]\n\
-That's like a week ago\nBut we both know how weekends go\nTryna function, got some places we could go\n\
-Lock jaw got me speakin slow like yeah\nI'm blessed on blessed\nI don't GAFOS\nYou tryna fuck?\nYes on yes on yes on yes\n\
-[Hook: G-Eazy]\nSay less\nSay less\nYou ain't got\nYou ain't got\nYou, you, you ain't got\nSay less (yeah)\nSay less\n\
-[Verse 3: G-Eazy]\nAy girl, what it do do\nIf u got friends, cool bring a few through\nNo fun if the homies can't have none\n\
-R.I.P. Nate Dogg shit is too true\nAnd you know what I'm down for\nRound 2, Round 3 into Round 4\n\
-Mood switched when she knocked at the front door\nNext up was the uproar, yeah\n\n[Pre-Hook: G-Eazy]\n\
-Was like a week ago, but we both know how weekends go\nTryna tuck off got some places we could go\n\
-Swear she got the deepest throat like wow\nShe's blessed on blessed\nI don't GAFOS\nYou tryna fuck?\n\
-Yes on yes on yes on yes!\n\n[Hook: G-Eazy]\nSay less\nSay less\nYou ain't got\nYou ain't got\nYou, you, you ain't got\n\
-Say less (yeah)\nSay less\n\n[Bridge]").split("  "));
-/*
-Sheesh, what you sayin'? I don't understand
-Goddamn, I'm out my mind, I popped another Xan
-Sheesh, I swear this lock jaw got me stuttering
-Goddamn, girl, you so fine, I'd fall in love again
-Sheesh, gettin' faded is my favorite rush
-Goddamn, you talkative, ain't gotta say too much
-Be quiet, who got some grapes? I'm tryna roll some trees
-Goddamn, uppers and downers, I'm off both of these
-Gettin' faded, not complicated
-Too sedated, no conversation
-Gettin' faded, not complicated
-We too sedated, no conversation
-Please say less
-Please say less
-Please say less
+console.log(phonemify(`(Ugh) Ha-ha-ha, I'm serious, nigga
+One of y'all niggas got some bad motherfuckin' breath
+		(Oh, man) Aye, baby, aye, baby, (shit) aye, baby
+Get some bubblegum in this motherfucker or somethin'
+Aye, nigga, get somethin' to eat, dog
+Aye, nigga, study long, study wrong, nigga
 
-[Pre-Hook: G-Eazy]
-I'm blessed on blessed
-I don't GAFOS
-You tryna fuck?
-Yes on yes on yes on yes
+	With so much drama in the L- B - C
+It's kind of hard bein' Snoop D- O - double - G
+But I, somehow, some way
+Keep comin' up with funky-ass shit, like, every single day
+May I kick a little something for the G's
+And make a few ends as I breeze through?
+	Two in the mornin' and the party's still jumpin'
+‘Cause my momma ain't home
+I got bitches in the livin' room gettin' it on
+And they ain't leavin' till six in the mornin'
+So what you wanna do?
+	Shit, I got a pocket full of rubbers and my homeboys do too
+So turn off the lights and close the doors
+But(but what?) we don't love them hoes, yeah
+So we gon' smoke a ounce to this
+G's up, hoes down, while you motherfuckers bounce to this
 
-[Hook: G-Eazy]
-Say less
-Say less
-You ain't got
-You ain't got
-You, you, you ain't got
-Say less
-Say less
-Say less
-You ain't got
-You ain't got
-You, you, you ain't got
-Say less"));
+Rollin' down the street, smokin' indo
+Sippin' on gin and juice, laid back
+With my mind on my money
+And my money on my mind
+Rollin' down the street, smokin' indo
+Sippin' on gin and juice, laid back
+With my mind on my money
+And my money on my mind
 
-*/
+Now that I got me some Seagram's gin
+Everybody got they cups, but they ain't chipped in
+Now this type of shit happens all the time
+You got to get yours but, fool, I gotta get mine
+Everything is fine when you listening to the D- O - G
+I got the cultivating music that be captivating he
+Who listens to the words that I speak
+As I take me a drink to the middle of the street
+And get to mackin' to this bitch named Sadie (Sadie?)
+She used to be the homeboy's lady (Oh, that bitch)
+80 degrees, when I tell that bitch please
+Raise up off these N- U - T's, ‘cause you gets none of these
+At ease, as I mob with the Dogg Pound
+Feel the breeze beyotch, I'm just…
+
+Rollin' down the street, smokin' indo
+Sippin' on gin and juice, laid back
+With my mind on my money
+And my money on my mind
+Rollin' down the street, smokin' indo
+Sippin' on gin and juice, laid back
+With my mind on my money
+And my money on my mind
+
+Later on that day, my homie Dr. Dre
+Came through with a gang of Tanqueray
+And a fat ass J of some bubonic chronic
+That made me choke; shit, this ain't no joke
+I had to back up off of it and sit my cup down
+Tanqueray and chronic, yeah, I'm fucked up now
+But it ain't no stoppin', I'm still poppin'
+Dre got some bitches from the city of Compton
+To serve me; not with a cherry on top
+‘Cause when I bust my nut I'm raising up off the cot
+Don't get upset, girl, that's just how it goes
+I don't love you, hoes, I'm out the door, and I'll be...
+
+Rollin' down the street, smokin' indo
+Sippin' on gin and juice, laid back
+With my mind on my money
+And my money on my mind
+Rollin' down the street, smokin' indo
+Sippin' on gin and juice, laid back
+With my mind on my money
+And my money on my mind
+
+Rollin' down the street, smokin' indo
+Sippin' on gin and juice, beyotch
+With my mind on my money
+And my money on my mind
+Rollin' down the street, smokin' indo
+Sippin' on gin and juice, beyotch
+With my mind on my money
+And my money on my mind`));

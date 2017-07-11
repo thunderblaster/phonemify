@@ -1,7 +1,7 @@
 const phonemes = require('./cmudict.js').phonemes();
 module.exports = function convert(rawInputToPhonemize, interWordSeparator) {
 	if(interWordSeparator === undefined) {
-		interWordSeparator = "  ";
+		interWordSeparator = "  "; //default to two spaces
 	}
 	var inputLines = rawInputToPhonemize.split("\n");
 	var inputWords = [];
@@ -19,66 +19,95 @@ module.exports = function convert(rawInputToPhonemize, interWordSeparator) {
 		}
 	}
 
-	var phonemesToOutput = "";
+	var translatedPhonemes = "";
 	for (i = 0; i < inputWords.length; i++) {
 		for (j = 0; j < inputWords[i].length; j++) {
-			var thisWord = inputWords[i][j].toUpperCase(); //words in array are all caps, need to make our query match
-			thisWord = removeDiacritics(thisWord); //change accented characters to their non-accented variants to avoid issues with words like résumé
-			thisWord = thisWord.replace(/[‘’]/g, "'"); //change smart single quote to dumb variant
-			thisWord = thisWord.replace(/[^a-z0-9']/gi, ""); //nuke all characters other than alphanumeric and apostrophe
-			if (thisWord.length == 0) { //in case some empty array sneaked by. https://www.merriam-webster.com/words-at-play/snuck-or-sneaked-which-is-correct
+			if (inputWords[i][j].length == 0) { //in case some empty array sneaked by. https://www.merriam-webster.com/words-at-play/snuck-or-sneaked-which-is-correct
 				continue;
-			}
-			var thisPhoneme = "";
-			if (j == inputWords[i].length - 1) { //if last word in line
-				var wordSeparator = "\n";
-			} else {
-				var wordSeparator = interWordSeparator;
-			}
-			var thisPhoneme = findPhonemes(thisWord);
-			if(thisPhoneme) {
-				phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeparator;
-			} else {
-				if(isFinite(thisWord)) { //if numeric, convert to words
-					var numberWords = convertNumberToWords(thisWord).toUpperCase();
-					var theseWords = numberWords.split(" ");
-					if(theseWords.length > 0) {
-						for(k=0; k < theseWords.length; k++) {
-							if(k < theseWords.length - 1) {
-								internalWordSeperator = interWordSeparator;
-							} else {
-								internalWordSeperator = wordSeparator;
-							}
-							thisWord = theseWords[k];
-							var thisPhoneme = findPhonemes(thisWord);
-							if(thisPhoneme) {
-								phonemesToOutput = phonemesToOutput + thisPhoneme + internalWordSeperator;
-							}
+			} else if (/\d/g.test(inputWords[i][j]) && /[a-z]/gi.test(inputWords[i][j])) { //if word continues both letters and numbers
+				var wordToBreakUp = inputWords[i][j].replace("'","");
+				var wordsBrokenUp = [];
+				while(wordToBreakUp.length > 0) {
+					currentWordBreaking = "";
+					if (/\d/g.test(wordToBreakUp.charAt(0))) {
+						while (/\d/g.test(wordToBreakUp.charAt(0))) {
+							currentWordBreaking = currentWordBreaking + wordToBreakUp.charAt(0);
+							wordToBreakUp = wordToBreakUp.substring(1, wordToBreakUp.length);
 						}
-					}
-				} else {
-					var thisPhoneme = checkIfAAVEGerund(thisWord); //see if its a gerund ending in ' instead of g
-					if(thisPhoneme) {
-						phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeparator;
 					} else {
-						thisWord = thisWord.replace("'", "");
-						var thisPhoneme = translateViaNRL(thisWord); //translate using NRL algorithm
-						if(thisPhoneme) {
-							phonemesToOutput = phonemesToOutput + thisPhoneme + wordSeparator;
-						} else {
-							return "error: couldn't find word '" + thisWord + "' and failed to translate it via NRL.";
+						while (/[a-z]/g.test(wordToBreakUp.charAt(0))) {
+							currentWordBreaking = currentWordBreaking + wordToBreakUp.charAt(0);
+							wordToBreakUp = wordToBreakUp.substring(1, wordToBreakUp.length);
 						}
 					}
+					wordsBrokenUp.push(currentWordBreaking);
+				}
+				inputWords[i].splice(j, 1);
+				for(z=0; z<wordsBrokenUp.length; z++) {
+					inputWords[i].splice(j+z, 0, wordsBrokenUp[z]);
+				}
+			}
+			if (j == inputWords[i].length - 1) { //if last word in line
+				var thisWordSeparator = "\n";
+			} else {
+				var thisWordSeparator = interWordSeparator;
+			}
+			var thisPhoneme = prepWordAndAssignAlgorithm(inputWords[i][j], thisWordSeparator, interWordSeparator);
+			translatedPhonemes = translatedPhonemes + thisPhoneme + thisWordSeparator;
+		}
+	}
+	return translatedPhonemes;
+}
+
+function prepWordAndAssignAlgorithm(word, thisWordSeparator, interWordSeparator) {
+	var thisWord = word.toUpperCase(); //words in array are all caps, need to make our query match
+	thisWord = removeDiacritics(thisWord); //change accented characters to their non-accented variants to avoid issues with words like résumé
+	thisWord = thisWord.replace(/[‘’]/g, "'"); //change smart single quote to dumb variant
+	thisWord = thisWord.replace(/[^a-z0-9']/gi, ""); //nuke all characters other than alphanumeric and apostrophe
+	var thisPhoneme = "";
+	var thisPhoneme = translateViaCmudict(thisWord); //check if word is in cmudict
+	if (thisPhoneme) {
+		return thisPhoneme;
+	} else if (isFinite(thisWord)) { //if numeric, convert to words
+		var numberWords = convertNumberToWords(thisWord).toUpperCase();
+		var theseWords = numberWords.split(" ");
+		var numberWordsTranslated = "";
+		if (theseWords.length > 0) {
+			for (k = 0; k < theseWords.length; k++) {
+				if (k < theseWords.length - 1) {
+					internalWordSeperator = interWordSeparator;
+				} else {
+					internalWordSeperator = thisWordSeparator;
+				}
+				thisWord = theseWords[k];
+				var thisPhoneme = translateViaCmudict(thisWord);
+				if (thisPhoneme) {
+					numberWordsTranslated = numberWordsTranslated + thisPhoneme + internalWordSeperator;
+				} else {
+					const numberErr = new Error('Could not translate ' + thisWord + '. cmudict did not define a number generated by convertWordsToNumbers()');
+					console.error(numberErr);
 				}
 			}
 		}
+		return numberWordsTranslated;
+	} else if (/'$/.test(thisWord)) { //see if its a gerund ending in ' instead of g
+		var thisPhoneme = checkIfAAVEGerund(thisWord); 
+		if (thisPhoneme) {
+			return thisPhoneme;
+		}
+	} 
+	thisWord = thisWord.replace("'", "");
+	var thisPhoneme = translateViaNRL(thisWord); //translate using NRL algorithm
+	if (thisPhoneme) {
+		return thisPhoneme;
+	} else {
+		const mysteryErr = new Error('Could not translate ' + thisWord);
+		console.error(mysteryErr);
 	}
-	return phonemesToOutput;
 }
-	
 
 
-function findPhonemes(word) {
+function translateViaCmudict(word) {
 	var translation = phonemes.find(function (obj) {
 		return obj.text === word;
 	});
@@ -96,7 +125,7 @@ function checkIfAAVEGerund(word) {
 	if(match !== null) {
 		word = word.substring(0, word.length - 1);
 		word = word + "G";
-		var thisPhoneme = findPhonemes(word);
+		var thisPhoneme = translateViaCmudict(word);
 		if(thisPhoneme) {
 			thisPhoneme = thisPhoneme.substring(0, thisPhoneme.length - 2);
 			return thisPhoneme;
@@ -112,7 +141,7 @@ function checkIfAAVEGerund(word) {
 //===== Navy Research Lab Implementation ==========================
 //=================================================================
 /*
-	Based on: NRL Report 7948, "Automatic Translation of English Text to Phonetics by Means of Letter-to-Sound Rules""
+	Based on: NRL Report 7948, "Automatic Translation of English Text to Phonetics by Means of Letter-to-Sound Rules"
 	Report Authors: HONEY SUE EL.OVITZ, RODNEY W. JOHNSON, ASTRID McHUGH, AND JOHN E. SHORE
 	Dated: 1976-01-21
 	Located At: http://www.dtic.mil/dtic/tr/fulltext/u2/a021929.pdf
@@ -839,12 +868,12 @@ function yRuleEng (word) {
 		{letters: "YOU", regex: /^you/, phonemes: "Y UW", extra: 1}, // [YOU]=/Y UW/
 		{letters: "YES", regex: /^yes/, phonemes: "Y EH S", extra: 1}, // [YES]=/Y EH S/
 		{letters: "Y", regex: /^y/, phonemes: "Y", extra: 1}, // [Y]=/Y/
-		{ letters: "Y", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*y$/, phonemes: "IY", extra: NaN}, //#^:[Y] =/IY/
-		{ letters: "Y", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*yi/, phonemes: "IY", extra: NaN}, //#^:[Y]I=/IY/
-		{ letters: "Y", regex: /^[BCDFGHJKLMNPQRSTVWXZ]*y$/, phonemes: "AY", extra: NaN}, // :[Y] =/AY/
-		{ letters: "Y", regex: /^[BCDFGHJKLMNPQRSTVWXZ]*y[AEIOUY]+/, phonemes: "AY", extra: NaN}, // :[Y]#=/AY/
-		{ letters: "Y", regex: /^[BCDFGHJKLMNPQRSTVWXZ]*y[BCDFGHJKLMNPQRSTVWXZ][EIY][BCDFGHJKLMNPQRSTVWXZ]*[AEIOUY]+/, phonemes: "IH", extra: NaN}, // :[Y]^+:#=/IH/
-		{ letters: "Y", regex: /^[BCDFGHJKLMNPQRSTVWXZ]*y[BCDFGHJKLMNPQRSTVWXZ][AEIOUY]+/, phonemes: "AY", extra: NaN}, // :[Y]^#=/AY/
+		{letters: "Y", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*y$/, phonemes: "IY", extra: NaN}, //#^:[Y] =/IY/
+		{letters: "Y", regex: /[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ][BCDFGHJKLMNPQRSTVWXZ]*yi/, phonemes: "IY", extra: NaN}, //#^:[Y]I=/IY/
+		{letters: "Y", regex: /^[BCDFGHJKLMNPQRSTVWXZ]*y$/, phonemes: "AY", extra: NaN}, // :[Y] =/AY/
+		{letters: "Y", regex: /^[BCDFGHJKLMNPQRSTVWXZ]*y[AEIOUY]+/, phonemes: "AY", extra: NaN}, // :[Y]#=/AY/
+		{letters: "Y", regex: /^[BCDFGHJKLMNPQRSTVWXZ]*y[BCDFGHJKLMNPQRSTVWXZ][EIY][BCDFGHJKLMNPQRSTVWXZ]*[AEIOUY]+/, phonemes: "IH", extra: NaN}, // :[Y]^+:#=/IH/
+		{letters: "Y", regex: /^[BCDFGHJKLMNPQRSTVWXZ]*y[BCDFGHJKLMNPQRSTVWXZ][AEIOUY]+/, phonemes: "AY", extra: NaN}, // :[Y]^#=/AY/
 		{letters: "Y", regex: /y/, phonemes: "IH", extra: 0} //[Y]=/IH/
 	];
 	for(l=0; l<yRules.length; l++) {
@@ -915,23 +944,26 @@ function syllabifyPhonemes (word) {
 			"part": null,
 			"sonority": null
 		};
-		if (vowels.indexOf(phonemes[n].text) > 0) {
+		if (vowels.indexOf(phonemes[n].text) > -1) {
 			phonemes[n].sonority = 4;
 			phonemes[n].part = "nucleus";
 			wordVowels.push(n);
 		}
-		if (glides.indexOf(phonemes[n].text) > 0) {
+		if (glides.indexOf(phonemes[n].text) > -1) {
 			phonemes[n].sonority = 3;
 		}
-		if (liquids.indexOf(phonemes[n].text) > 0) {
+		if (liquids.indexOf(phonemes[n].text) > -1) {
 			phonemes[n].sonority = 2;
 		}
-		if (nasals.indexOf(phonemes[n].text) > 0) {
+		if (nasals.indexOf(phonemes[n].text) > -1) {
 			phonemes[n].sonority = 1;
 		}
-		if (obstruents.indexOf(phonemes[n].text) > 0) {
+		if (obstruents.indexOf(phonemes[n].text) > -1) {
 			phonemes[n].sonority = 0;
 		}
+	}
+	if(wordVowels.length === 0) { //no vowels to stress
+		return word; 
 	}
 	if (wordVowels.length === 1) {
 		phonemes[wordVowels[0]].text = phonemes[wordVowels[0]].text.trim() + "1"; //only 1 syllable primary stress is on the only one
@@ -972,6 +1004,7 @@ function syllabifyPhonemes (word) {
 		phonemes[wordVowels[4]].text = phonemes[wordVowels[4]].text.trim() + "0";
 		phonemes[wordVowels[5]].text = phonemes[wordVowels[5]].text.trim() + "0";
 	} else {
+		console.log(word, phonemes, wordVowels);
 		var extra = (wordVowels.length - 6) % 3;
 		if(extra===1) {
 			phonemes[wordVowels[0]].text = phonemes[wordVowels[0]].text.trim() + "0";
