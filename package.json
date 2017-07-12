@@ -1,11 +1,11 @@
 {
   "name": "phonemify",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
-  "main": "phonemify.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
   "author": "Zack Reithmeyer",
-  "license": "CC BY-SA 3.0"
+  "license": "GPL-3.0"
 }
